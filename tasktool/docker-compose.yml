@@ -1,12 +1,16 @@
+version: '3.8'
 services:
-  postgres:
-    container_name: postgres
-    image: postgres
+  postgres_db:
+    image: postgres:latest
+    container_name: PostgresCont 
+    restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=mydb
+      - POSTGRES_PASSWORD=postgres123
     ports:
-      - 6500:5432
+      - '5432:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_db:/var/lib/postgresql/data
+volumes:
+  postgres_db:
+    driver: local
