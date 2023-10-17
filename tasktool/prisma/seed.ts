@@ -12,8 +12,6 @@ async function main() {
       finishedAt: new Date(),
     }
   });
-
-  console.log(testTask);
 }
 
 main()
