@@ -15,13 +15,13 @@ export default function Home() {
           <div>
             <button className={styles.button}>closed</button>
           </div>
-          <div>
-            <button className={styles.button}>Filter</button>
-          </div>
+          {/* <div>
+            <button className={styles.button}>Filter</button>      Wird später benötigt!!!
+          </div> */}
       </div>
       <div className={styles.description}>
           <div>
-            <input type="beschreibung" name="task"></input>
+            <input className={styles.button} type="beschreibung" name="task"></input>
           </div>
           {/* <div>
             <button>✘</button>
@@ -44,7 +44,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <button>✓</button>
+            <button className={styles.button}>✓</button>
           </div>
       </div>
 
@@ -56,9 +56,11 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-          wichtig & dringend <span>-&gt;</span>
+          wichtig & dringend
           </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
+            <div>
+              <p>Find in-depth information about Next.js features and API.</p>
+            </div>
         </a>
 
         <a
@@ -68,9 +70,11 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-          wichtig & nicht dringend <span>-&gt;</span>
+          wichtig & nicht dringend
           </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
+            <div>
+              <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
+            </div>
         </a>
 
         <a
@@ -80,9 +84,11 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-          nicht wichtig & dringend <span>-&gt;</span>
+          nicht wichtig & dringend
           </h2>
-          <p>Explore the Next.js 13 playground.</p>
+            <div>
+              <p>Explore the Next.js 13 playground.</p>
+            </div>
         </a>
 
         <a
@@ -92,11 +98,11 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2>
-          nicht wichtig & nicht dringend <span>-&gt;</span>
+          nicht wichtig & nicht dringend
           </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
+            <div>
+              <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
+            </div>
         </a>
       </div>
     </main>
