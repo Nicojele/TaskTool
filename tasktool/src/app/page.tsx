@@ -67,7 +67,7 @@ export default function Home() {
           wichtig & nicht dringend
           </h2>
             <div>
-              <TaskComponent category={Category.WichtigDringend} description='Schow Component'></TaskComponent>
+              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
             </div>
         </a>
 

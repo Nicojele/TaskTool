@@ -9,20 +9,20 @@ type taskComponentProps = {
 export default function TaskComponent(props: taskComponentProps) {
   return (
     <>  
-      <div className={styles.ComponentBody}>
-        <div className={styles.TextConatiner}>
-          <text className={styles.DescriptionText}>
+      <div className={styles.componentBody}>
+        <div className={styles.textContainer}>
+          <text className={styles.descriptionText}>
             {props.description}
           </text>
-          <text className={styles.CategoryText}>
+          <text className={styles.categoryText}>
             {props.category}
           </text>
         </div>
-        <div className={styles.OptionButtonContainer}>
-          <button className={styles.FinishedButton}>
+        <div className={styles.optionButtonContainer}>
+          <button className={styles.finishedButton}>
             finished
           </button>
-          <button className={styles.Cancelbutton}>
+          <button className={styles.cancelButton}>
             Cancel
           </button>
         </div>
