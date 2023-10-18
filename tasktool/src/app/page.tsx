@@ -118,10 +118,7 @@ export default function Home(props: TaskToolProps) {
 }
 
 async function createTask(category: Category) {
-
   const description = (document.getElementById("description") as HTMLInputElement).value
-
-  console.log(description)
 
   const data: createTaskRequest = { category: category, createdAt: new Date(), description: description, finished: false, finishedAt: undefined, };
   
