@@ -6,9 +6,6 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-          {/* <div>
-            <input type="beschreibung" name="task"></input>
-          </div> */}
           <div>
             <button className={styles.button}>open</button>
           </div>
@@ -23,9 +20,6 @@ export default function Home() {
           <div>
             <input className={styles.textField} type="beschreibung" name="task"></input>
           </div>
-          {/* <div>
-            <button>✘</button>
-          </div> */}
           <div className={styles.dropdown}>
             {/* <button className={styles.dropbtn}>Projekt</button>
             <div className={styles.dropdownContent}>
@@ -104,3 +98,11 @@ export default function Home() {
     </main>
   )
 }
+
+
+/* Zeichen zum kopieren:
+
+✘
+✓
+
+*/
