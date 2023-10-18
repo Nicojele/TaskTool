@@ -6,8 +6,21 @@ import { toUnicode } from 'punycode'
 import TaskComponent from './components/taskComponent'
 import { Category } from '@prisma/client'
 import { createTaskRequest } from './createTaskRequest/createTaskRequest'
+import { useState } from 'react'
 
-export default function Home() {
+interface TaskToolState {
+  category: Category | undefined
+}
+
+type TaskToolProps = {
+  category: Category
+}
+
+export default function Home(props: TaskToolProps) {
+  const [state, setState] = useState<TaskToolState>({
+    category: undefined,
+  });
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -36,14 +49,14 @@ export default function Home() {
           <div className={styles.dropdown}>
             <button className={styles.dropbtn}>Dringlichkeit</button>
             <div className={styles.dropdownContent}>
-              <a href="#">wichtig & dringend</a>
-              <a href="#">wichtig & nicht dringend</a>
-              <a href="#">nicht wichtig & dringend</a>
-              <a href="#">nicht wichtig & nicht dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.WichtigDringend })}>wichtig & dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Wichtig })}>wichtig & nicht dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Dringend })}>nicht wichtig & dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Unwichtig })}>nicht wichtig & nicht dringend</a>
             </div>
           </div>
           <div>
-            <button className={styles.button} onClick={async () => createTask()}>✓</button>
+          <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
           </div>
       </div>
 
@@ -104,14 +117,16 @@ export default function Home() {
   )
 }
 
-async function createTask() {
+async function createTask(category: Category) {
 
   const description = (document.getElementById("description") as HTMLInputElement).value
 
   console.log(description)
 
-  const data: createTaskRequest = { category: Category.Dringend, createdAt: new Date(), description: description, finished: false, finishedAt: undefined, }
+  const data: createTaskRequest = { category: category, createdAt: new Date(), description: description, finished: false, finishedAt: undefined, };
   
+  (document.getElementById("description") as HTMLInputElement).value = "";
+
   await fetch("api/task", {
     method: "POST",
     body: JSON.stringify(data),
@@ -124,20 +139,6 @@ async function createTask() {
       .catch(error => {
         console.error(error);
       })
-  
-  const res = await fetch("api/task", {
-    method: "GET",
-    headers: {'Content-Type': 'application/json'},
-  })
-   .then(async response => {
-
-        return response.json();
-   })
-    .catch(error => {
-      console.error(error);
-    })
-  
-  console.log(await res);
 }
 
 /* Zeichen zum kopieren:
