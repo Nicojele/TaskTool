@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   border: 2px;
   border-color: black;
   border-style: solid;
@@ -16,15 +15,26 @@
   flex-direction: row;
   align-items: center;
   height: 100%;
-  width: 100%;
+  width: 20%;
 }
 
-.cancelbutton {
-  margin-left: 5px;
+.finishedButton {
+  height: 100%;
+  width: 48%;
+  margin-right: 3%;
+}
+
+.cancelButton {
+  height: 100%;
+  width: 48%;
 }
 
 .textContainer {
+  width: 80%;
   padding-right: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .descriptionText {
