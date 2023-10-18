@@ -20,19 +20,17 @@
 }
 
 .button {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0.5rem;
   border: 2px solid white;
   border-radius: 5px;
 }
 
 .textField {
-  margin: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0.5rem;
   border: 2px solid white;
   border-radius: 5px;
-
 }
 
 .grid {

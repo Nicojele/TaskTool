@@ -3,7 +3,6 @@
   --border-radius: 12px;
   --background-color: black;
   --border-radius: 12px;
-  --border-color: 2px solid blue;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,6 +10,7 @@
     --card-rgb: 100, 100, 100;
     --card-border-rgb: 200, 200, 200;
     text-align: center;
+
   }
 }
 
