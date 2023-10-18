@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { toUnicode } from 'punycode'
+import TaskComponent from './components/taskComponent'
+import { Category } from '@prisma/client'
 
 export default function Home() {
   return (
@@ -65,7 +67,7 @@ export default function Home() {
           wichtig & nicht dringend
           </h2>
             <div>
-              <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
+              <TaskComponent category={Category.WichtigDringend} description='Schow Component'></TaskComponent>
             </div>
         </a>
 
