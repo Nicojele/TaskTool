@@ -5,14 +5,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: black;
-}
-
-.TextConatiner {
-  padding-right: 3%;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  background-color: white;
 }
 
 .OptionButtonContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   height: 100%;
   width: 100%;
 }
@@ -22,9 +24,14 @@
 }
 
 .TextConatiner {
-  padding-right: 10px;
+  padding-right: 15px;
 }
 
 .DescriptionText {
   margin-right: 15px;
+  color: black;
+}
+
+.CategoryText {
+  color: black;
 }
