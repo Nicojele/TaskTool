@@ -1,8 +1,11 @@
+'use client'
+
 import Image from 'next/image'
 import styles from './page.module.css'
 import { toUnicode } from 'punycode'
 import TaskComponent from './components/taskComponent'
 import { Category } from '@prisma/client'
+import { createTaskRequest } from './createTaskRequest/createTaskRequest'
 
 export default function Home() {
   return (
@@ -20,7 +23,7 @@ export default function Home() {
       </div>
       <div className={styles.description}>
           <div>
-            <input className={styles.textField} type="beschreibung" name="task"></input>
+            <input className={styles.textField} id='description' type="beschreibung" name="task"></input>
           </div>
           <div className={styles.dropdown}>
             {/* <button className={styles.dropbtn}>Projekt</button>
@@ -40,7 +43,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <button className={styles.button}>✓</button>
+            <button className={styles.button} onClick={async () => createTask()}>✓</button>
           </div>
       </div>
 
@@ -101,6 +104,41 @@ export default function Home() {
   )
 }
 
+async function createTask() {
+
+  const description = (document.getElementById("description") as HTMLInputElement).value
+
+  console.log(description)
+
+  const data: createTaskRequest = { category: Category.Dringend, createdAt: new Date(), description: description, finished: false, finishedAt: undefined, }
+  
+  await fetch("api/task", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {'Content-Type': 'application/json'},
+  })
+    .then(async response => {
+
+      return response.json();
+    })
+      .catch(error => {
+        console.error(error);
+      })
+  
+  const res = await fetch("api/task", {
+    method: "GET",
+    headers: {'Content-Type': 'application/json'},
+  })
+   .then(async response => {
+
+        return response.json();
+   })
+    .catch(error => {
+      console.error(error);
+    })
+  
+  console.log(await res);
+}
 
 /* Zeichen zum kopieren:
 
