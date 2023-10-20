@@ -26,17 +26,6 @@ export default function Home(props: TaskToolProps) {
     <main className={styles.main}>
       <div className={styles.description}>
           <div>
-            <button className={styles.button}>open</button>
-          </div>
-          <div>
-            <button className={styles.button}><Link href="./history">closed</Link></button>
-          </div>
-          {/* <div>
-            <button className={styles.button}>Filter</button>      Wird später benötigt!!!
-          </div> */}
-      </div>
-      <div className={styles.description}>
-          <div>
             <input className={styles.textField} id='description' type="beschreibung" name="task"></input>
           </div>
           <div className={styles.dropdown}>
