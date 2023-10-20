@@ -7,6 +7,7 @@ import TaskComponent from './components/taskComponent'
 import { Category } from '@prisma/client'
 import { createTaskRequest } from './createTaskRequest/createTaskRequest'
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface TaskToolState {
   category: Category | undefined
@@ -28,7 +29,7 @@ export default function Home(props: TaskToolProps) {
             <button className={styles.button}>open</button>
           </div>
           <div>
-            <button className={styles.button}>closed</button>
+            <button className={styles.button}><Link href="./history">closed</Link></button>
           </div>
           {/* <div>
             <button className={styles.button}>Filter</button>      Wird später benötigt!!!
