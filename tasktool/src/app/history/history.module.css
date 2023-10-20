@@ -1,4 +1,4 @@
-.historyContainer {
+.body {
   height: 90%;
   width: 100%;
   display: flex;
@@ -7,9 +7,17 @@
   justify-content: center;
 }
 
-.content {
+.historyContainer {
   height: 100%;
-  width: 55%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: 2px;
   border-style: solid;
+}
+
+.content {
+  height: auto;
+  width: 100%;
 }
