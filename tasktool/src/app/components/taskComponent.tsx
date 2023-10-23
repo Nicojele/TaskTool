@@ -1,9 +1,12 @@
-import { Category } from "@prisma/client";
-import styles  from "./components.module.css";
+'use client'
+
+import { Category, Task } from "@prisma/client";
+import styles from "./components.module.css";
+import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
+import { NextResponse } from "next/server";
 
 type taskComponentProps = {
-  description: string
-  category: Category
+  task: Task
 }
 
 export default function TaskComponent(props: taskComponentProps) {
@@ -12,17 +15,17 @@ export default function TaskComponent(props: taskComponentProps) {
       <div className={styles.componentBody}>
         <div className={styles.textContainer}>
           <text className={styles.descriptionText}>
-            {props.description}
+            {props.task.description}
           </text>
           <text className={styles.categoryText}>
-            {getCategory(props.category)}
+            {getCategory(props.task.category)}
           </text>
         </div>
         <div className={styles.optionButtonContainer}>
           <button className={styles.finishedButton}>
             finished
           </button>
-          <button className={styles.cancelButton}>
+          <button className={styles.cancelButton} onClick={async () => closeTask(props.task)}>
             Cancel
           </button>
         </div>
@@ -47,4 +50,17 @@ function getCategory(category: Category): string {
   }
 
   return res;
+}
+
+async function closeTask(taskToClose: Task) {
+
+  const data: deleteTaskRequest = {id: taskToClose.id, category: taskToClose.category, createdAt: taskToClose.createtAt, description: taskToClose.description, finished: true, finishedAt: new Date(),};
+
+  const res = await fetch("/api/task", {
+    method: "DELETE",
+    body: JSON.stringify(data),
+    headers: {'Content-Type': 'application/json'},
+  })
+
+  return NextResponse.json({ res })
 }
