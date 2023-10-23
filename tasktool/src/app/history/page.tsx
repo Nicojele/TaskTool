@@ -22,7 +22,7 @@ export default async function showOrderView(): Promise<JSX.Element> {
         <div className={styles.historyContainer}>
           <div className={styles.content}>
             {finishedTasks.map((task) => (
-              <TaskComponent category={task.category} description={task.description}></TaskComponent>
+              <TaskComponent task={task}></TaskComponent>
               ))}
           </div>
         </div>

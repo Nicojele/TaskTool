@@ -60,8 +60,8 @@ export default function Home(props: TaskToolProps) {
           wichtig & dringend
           </h2>
             <div className={styles.taskContainer}>
-              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
+              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "Show Component", finished: false, finishedAt: null, id: 0}}></TaskComponent>
+              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "Show Component", finished: false, finishedAt: null, id: 0}}></TaskComponent>
             </div>
         </a>
 
@@ -74,8 +74,7 @@ export default function Home(props: TaskToolProps) {
           wichtig & nicht dringend
           </h2>
             <div className={styles.taskContainer}>
-              <TaskComponent category={Category.Wichtig} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.Wichtig} description='Show Component'></TaskComponent>
+              
             </div>
         </a>
 
@@ -88,8 +87,7 @@ export default function Home(props: TaskToolProps) {
           nicht wichtig & dringend
           </h2>
             <div className={styles.taskContainer}>
-              <TaskComponent category={Category.Dringend} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.Dringend} description='Show Component'></TaskComponent>
+              
             </div>
         </a>
 
@@ -102,8 +100,7 @@ export default function Home(props: TaskToolProps) {
           nicht wichtig & nicht dringend
           </h2>
             <div className={styles.taskContainer}>
-              <TaskComponent category={Category.Unwichtig} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.Unwichtig} description='Show Component'></TaskComponent>
+              
             </div>
         </a>
       </div>
