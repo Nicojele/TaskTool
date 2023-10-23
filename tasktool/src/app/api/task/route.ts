@@ -28,3 +28,18 @@ export async function GET(
 
   return NextResponse.json({ res });
 }
+
+export async function DELETE(
+  req: NextRequest
+) {
+
+  const data = await req.json();
+
+  const res = await prisma.task.delete({
+    where: {
+      id: data.id
+    }
+  })
+
+  return NextResponse.json({ res })
+}
