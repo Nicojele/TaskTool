@@ -59,8 +59,9 @@ export default function Home(props: TaskToolProps) {
           <h2>
           wichtig & dringend
           </h2>
-            <div>
-              <p>Find in-depth information about Next.js features and API.</p>
+            <div className={styles.taskContainer}>
+              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
+              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
             </div>
         </a>
 
@@ -72,8 +73,9 @@ export default function Home(props: TaskToolProps) {
           <h2>
           wichtig & nicht dringend
           </h2>
-            <div>
-              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
+            <div className={styles.taskContainer}>
+              <TaskComponent category={Category.Wichtig} description='Show Component'></TaskComponent>
+              <TaskComponent category={Category.Wichtig} description='Show Component'></TaskComponent>
             </div>
         </a>
 
@@ -85,8 +87,9 @@ export default function Home(props: TaskToolProps) {
           <h2>
           nicht wichtig & dringend
           </h2>
-            <div>
-              <p>Explore the Next.js 13 playground.</p>
+            <div className={styles.taskContainer}>
+              <TaskComponent category={Category.Dringend} description='Show Component'></TaskComponent>
+              <TaskComponent category={Category.Dringend} description='Show Component'></TaskComponent>
             </div>
         </a>
 
@@ -98,8 +101,9 @@ export default function Home(props: TaskToolProps) {
           <h2>
           nicht wichtig & nicht dringend
           </h2>
-            <div>
-              <p>Instantly deploy your Next.js site to a shareable URL with Vercel. </p>
+            <div className={styles.taskContainer}>
+              <TaskComponent category={Category.Unwichtig} description='Show Component'></TaskComponent>
+              <TaskComponent category={Category.Unwichtig} description='Show Component'></TaskComponent>
             </div>
         </a>
       </div>
