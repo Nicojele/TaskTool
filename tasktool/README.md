@@ -1,6 +1,30 @@
-## Task Manegement Tool
+# Task Manegement Tool
 
-# Getting Started
+## Inhalte
+
+- [Genrelle Informationen](#)
+
+## Generelle Informationen
+
+Bei diesem Projekt handelt es sich um eine Anwendung zum Organisieren von Aufgaben.
+Es soll dazu dienen die Notwendigkeit von Aufgaben besser handhaben zu können und Aufgaben zu verteilen.
+
+## Technoligien
+### NextJs
+<https://nextjs.org/docs>
+### React
+<https://reactjs.org/docs/getting-started.html>
+
+### PostgreSQL
+<https://www.postgresql.org/docs/>
+
+## Vorraussetzungen
+### Docker
+<https://www.docker.com/get-started>
+
+
+
+## Application starten
 
 First, run the development server:
 
@@ -14,21 +38,17 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Öffne [http://localhost:3000](http://localhost:3000) mit deinem Browser um die Ergebnisse zu sehen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Du kannst damit starten die `app/page.tsx` zu Bearbeiten. Die Seite updatet sich automisch.
 
 ## Create Migrations
 
-Use the `docker-compose up` command to start the Container thats needet to create the migrations
+Nutze den `docker-compose up` Befehl um die Benötigten Container zum erstellen der Migartions zu starten.
 
-Make shure the seeding command is added to your `Package.json`.
+Stelle sicher das der befehl zum Seeden von Daten zur `Package.json` hinzugefügt ist.
 
-Create your migrations by using the `npx prisma migarte dev` command.
-
-## 
+Erstelle deine Migartions jetzt, benutze dafür den `npx prisma migarte dev` Befehl.
 
 ## Deploy on Vercel
 
