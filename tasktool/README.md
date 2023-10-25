@@ -1,6 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Task Manegement Tool
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 
@@ -20,14 +20,15 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Create Migrations
 
-To learn more about Next.js, take a look at the following resources:
+Use the `docker-compose up` command to start the Container thats needet to create the migrations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Make shure the seeding command is added to your `Package.json`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Create your migrations by using the `npx prisma migarte dev` command.
+
+## 
 
 ## Deploy on Vercel
 
