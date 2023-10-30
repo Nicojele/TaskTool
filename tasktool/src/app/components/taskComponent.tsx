@@ -1,5 +1,6 @@
 import { Category } from "@prisma/client";
-import styles  from "./components.module.css";
+import styles from "./components.module.css";
+import { Button } from '@blueprintjs/core';
 
 type taskComponentProps = {
   description: string
@@ -19,12 +20,8 @@ export default function TaskComponent(props: taskComponentProps) {
           </text>
         </div>
         <div className={styles.optionButtonContainer}>
-          <button className={styles.finishedButton}>
-            finished
-          </button>
-          <button className={styles.cancelButton}>
-            Cancel
-          </button>
+          <Button className={styles.finishedButton} icon="tick"/>
+          <Button className={styles.cancelButton} icon="cross" />
         </div>
       </div>
     </>
