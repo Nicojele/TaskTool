@@ -17,20 +17,20 @@
   align-items: center;
   height: 100%;
   width: 10%;
-  /* padding-right: 1%; */
 }
 
 .finishedButton {
   height: 100%;
   width: 48%;
-  margin-right: 3%;
-  /* border-radius: 7px; */
+  margin-right: 4%;
+  background-color: rgb(150, 150, 150);
+
 }
 
 .cancelButton {
   height: 100%;
   width: 48%;
-  /* border-radius: 7px; */
+  background-color: rgb(150, 150, 150);
 }
 
 .textContainer {
@@ -42,10 +42,13 @@
 }
 
 .descriptionText {
-  margin-right: 15px;
+  min-width: 50%;
+  margin-right: 10%;
   color: black;
 }
 
 .categoryText {
+  max-width: 40%;
+  min-width: 30%;
   color: black;
 }
