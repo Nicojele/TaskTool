@@ -12,12 +12,16 @@ export default function TaskComponent(props: taskComponentProps) {
     <>
       <div className={styles.componentBody}>
         <div className={styles.textContainer}>
+          <div className={styles.descryptionTextContainer}>
           <text className={styles.descriptionText}>
             {props.description}
           </text>
+          </div>
+          <div className={styles.categoryTextConatiner}>
           <text className={styles.categoryText}>
             {getCategory(props.category)}
           </text>
+          </div>
         </div>
         <div className={styles.optionButtonContainer}>
           <Button className={styles.finishedButton} icon="tick"/>
