@@ -38,17 +38,23 @@
   padding-right: 15px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+}
+
+.descryptionTextContainer {
+  width: 50%;
+  text-align: left;
+}
+
+.categoryTextConatiner {
+  width: 40%;
 }
 
 .descriptionText {
-  min-width: 50%;
-  margin-right: 10%;
+  width: 100%;
   color: black;
 }
 
 .categoryText {
-  max-width: 40%;
-  min-width: 30%;
+  width: 100%;
   color: black;
 }
