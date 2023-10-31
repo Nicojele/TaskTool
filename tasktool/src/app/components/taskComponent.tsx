@@ -14,12 +14,12 @@ export default function TaskComponent(props: taskComponentProps) {
     <>
       <div className={styles.componentBody}>
         <div className={styles.textContainer}>
-          <text className={styles.descriptionText}>
+          <p className={styles.descriptionText}>
             {props.task.description}
-          </text>
-          <text className={styles.categoryText}>
+          </p>
+          <p className={styles.categoryText}>
             {getCategory(props.task.category)}
-          </text>
+          </p>
         </div>
         <div className={styles.optionButtonContainer}>
           <button className={styles.finishedButton}>
@@ -61,6 +61,7 @@ async function closeTask(taskToClose: Task) {
     body: JSON.stringify(data),
     headers: {'Content-Type': 'application/json'},
   })
+  location.reload();
 
   return NextResponse.json({ res })
 }
