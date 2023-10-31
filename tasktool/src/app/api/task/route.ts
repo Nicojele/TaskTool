@@ -6,7 +6,6 @@ export async function POST(
   req: NextRequest
 ) {
   const data = await req.json()
-  console.log(data);
 
   const res = await prisma.task.create({
     data: {
