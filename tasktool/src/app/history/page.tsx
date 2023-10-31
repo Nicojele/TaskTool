@@ -28,8 +28,6 @@ export default function showOrderView(): JSX.Element {
     fetchData();
   }, [])
 
-  console.log(state.tasks);
-
   return (
     <>
       <div className={styles.body}>

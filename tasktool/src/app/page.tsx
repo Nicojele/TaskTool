@@ -35,8 +35,6 @@ export default function Home(props: TaskToolProps) {
     fetchData();
   }, [])
 
-  console.log(state);
-
   return (
     <main className={styles.main}>
       <div className={styles.description}>
