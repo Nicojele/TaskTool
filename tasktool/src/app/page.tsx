@@ -83,7 +83,10 @@ export default function Home(props: TaskToolProps) {
           wichtig & nicht dringend
           </h2>
             <div>
-              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='Create a new Task'></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='PR`s mergen'></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='Eine viel zu lange beschreibung um zu schauen wie das aussieht'></TaskComponent>
             </div>
         </a>
 
