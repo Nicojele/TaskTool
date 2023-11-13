@@ -49,7 +49,7 @@ export default function TaskComponent(props: taskComponentProps) {
           </div>
           <div className={styles.optionButtonContainer}>
             <Button className={styles.finishedButton} icon="tick"/>
-            <Button className={styles.cancelButton} icon="cross" />
+            <Button className={styles.cancelButton} icon="cross" onClick={async () => {closeTask(props.task)}}/>
           </div>
         </div>
       </>
