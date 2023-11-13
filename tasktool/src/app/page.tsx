@@ -64,7 +64,6 @@ export default function Home(props: TaskToolProps) {
     );
   }
 
-
   return (
     <main className={styles.main}>
       <div className={styles.description}>
