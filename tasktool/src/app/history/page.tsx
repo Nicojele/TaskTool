@@ -1,3 +1,5 @@
+'use client'
+
 import { Task } from "@prisma/client";
 import styles from "./history.module.css";
 import { useEffect, useState } from "react";
@@ -22,7 +24,7 @@ export default async function showOrderView(): Promise<JSX.Element> {
         <div className={styles.historyContainer}>
           <div className={styles.content}>
             {finishedTasks.map((task) => (
-              <TaskComponent category={task.category} description={task.description}></TaskComponent>
+              <TaskComponent category={task.category} description={task.description} finished={true}></TaskComponent>
               ))}
           </div>
         </div>

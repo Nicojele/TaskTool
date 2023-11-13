@@ -59,9 +59,8 @@ export default function Home(props: TaskToolProps) {
           <h2>
           wichtig & dringend
           </h2>
-            <div className={styles.taskContainer}>
-              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.WichtigDringend} description='Show Component'></TaskComponent>
+            <div>
+              <p>Find in-depth information about Next.js features and API.</p>
             </div>
         </a>
 
@@ -73,9 +72,11 @@ export default function Home(props: TaskToolProps) {
           <h2>
           wichtig & nicht dringend
           </h2>
-            <div className={styles.taskContainer}>
-              <TaskComponent category={Category.Wichtig} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.Wichtig} description='Show Component'></TaskComponent>
+            <div>
+            <TaskComponent category={Category.WichtigDringend} description='Show Component' finished={false}></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='Create a new Task' finished={false}></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='PR`s mergen' finished={false}></TaskComponent>
+            <TaskComponent category={Category.WichtigDringend} description='Eine viel zu lange beschreibung um zu schauen wie das aussieht' finished={false}></TaskComponent>
             </div>
         </a>
 
@@ -87,9 +88,8 @@ export default function Home(props: TaskToolProps) {
           <h2>
           nicht wichtig & dringend
           </h2>
-            <div className={styles.taskContainer}>
-              <TaskComponent category={Category.Dringend} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.Dringend} description='Show Component'></TaskComponent>
+            <div>
+              <p>Explore the Next.js 13 playground.</p>
             </div>
         </a>
 
@@ -101,9 +101,8 @@ export default function Home(props: TaskToolProps) {
           <h2>
           nicht wichtig & nicht dringend
           </h2>
-            <div className={styles.taskContainer}>
-              <TaskComponent category={Category.Unwichtig} description='Show Component'></TaskComponent>
-              <TaskComponent category={Category.Unwichtig} description='Show Component'></TaskComponent>
+            <div>
+              <p>Instantly deploy your Next.js site to a shareable URL with Vercel. </p>
             </div>
         </a>
       </div>
