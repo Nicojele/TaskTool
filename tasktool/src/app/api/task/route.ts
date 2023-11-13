@@ -6,7 +6,6 @@ export async function POST(
   req: NextRequest
 ) {
   const data = await req.json()
-  console.log(data);
 
   const res = await prisma.task.create({
     data: {
@@ -27,4 +26,19 @@ export async function GET(
   const res = await prisma.task.findMany();
 
   return NextResponse.json({ res });
+}
+
+export async function DELETE(
+  req: NextRequest
+) {
+
+  const data = await req.json();
+
+  const res = await prisma.task.delete({
+    where: {
+      id: data.id
+    }
+  })
+
+  return NextResponse.json({ res })
 }

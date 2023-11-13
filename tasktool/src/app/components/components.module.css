@@ -6,7 +6,7 @@
   align-items: center;
   border: 2px;
   border-color: black;
-  border-style: solid;
+  border-bottom-style: solid;
   background-color: white;
   margin-top: 5px;
   border-radius: 3px;
@@ -21,7 +21,7 @@
 }
 
 .finishedButton {
-  height: 100%;
+  height: 90%;
   width: 48%;
   margin-right: 4%;
   background-color: rgb(150, 150, 150);
@@ -29,7 +29,7 @@
 }
 
 .cancelButton {
-  height: 100%;
+  height: 90%;
   width: 48%;
   background-color: rgb(150, 150, 150);
 }

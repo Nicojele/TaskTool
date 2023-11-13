@@ -1,0 +1,22 @@
+.body {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.historyContainer {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px;
+}
+
+.content {
+  height: auto;
+  width: 100%;
+}

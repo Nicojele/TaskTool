@@ -1,27 +1,27 @@
-import { Category } from "@prisma/client";
+import { Category, Task } from "@prisma/client";
 import styles from "./components.module.css";
 import { Button } from '@blueprintjs/core';
+import { NextResponse } from "next/server";
+import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
 
 type taskComponentProps = {
-  description: string
-  category: Category
-  finished: boolean
+  task: Task
 }
 
 export default function TaskComponent(props: taskComponentProps) {
-  if (props.finished == true) {
+  if (props.task.finished == true) {
     return (
       <>
         <div className={styles.componentBody}>
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
             <text className={styles.descriptionText}>
-              {props.description}
+              {props.task.description}
             </text>
             </div>
             <div className={styles.categoryTextConatiner}>
             <text className={styles.categoryText}>
-              {getCategory(props.category)}
+              {getCategory(props.task.category)}
             </text>
             </div>
           </div>
@@ -38,12 +38,12 @@ export default function TaskComponent(props: taskComponentProps) {
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
             <text className={styles.descriptionText}>
-              {props.description}
+              {props.task.description}
             </text>
             </div>
             <div className={styles.categoryTextConatiner}>
             <text className={styles.categoryText}>
-              {getCategory(props.category)}
+              {getCategory(props.task.category)}
             </text>
             </div>
           </div>
@@ -73,4 +73,18 @@ function getCategory(category: Category): string {
   }
 
   return res;
+}
+
+async function closeTask(taskToClose: Task) {
+
+  const data: deleteTaskRequest = {id: taskToClose.id, category: taskToClose.category, createdAt: taskToClose.createtAt, description: taskToClose.description, finished: true, finishedAt: new Date(),};
+
+  const res = await fetch("/api/task", {
+    method: "DELETE",
+    body: JSON.stringify(data),
+    headers: {'Content-Type': 'application/json'},
+  })
+  location.reload();
+
+  return NextResponse.json({ res })
 }
