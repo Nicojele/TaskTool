@@ -1,37 +1,60 @@
-'use client'
-
-import { Category, Task } from "@prisma/client";
+import { Category } from "@prisma/client";
 import styles from "./components.module.css";
-import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
-import { NextResponse } from "next/server";
+import { Button } from '@blueprintjs/core';
 
 type taskComponentProps = {
-  task: Task
+  description: string
+  category: Category
+  finished: boolean
 }
 
 export default function TaskComponent(props: taskComponentProps) {
-  return (
-    <>
-      <div className={styles.componentBody}>
-        <div className={styles.textContainer}>
-          <p className={styles.descriptionText}>
-            {props.task.description}
-          </p>
-          <p className={styles.categoryText}>
-            {getCategory(props.task.category)}
-          </p>
+  if (props.finished == true) {
+    return (
+      <>
+        <div className={styles.componentBody}>
+          <div className={styles.textContainer}>
+            <div className={styles.descryptionTextContainer}>
+            <text className={styles.descriptionText}>
+              {props.description}
+            </text>
+            </div>
+            <div className={styles.categoryTextConatiner}>
+            <text className={styles.categoryText}>
+              {getCategory(props.category)}
+            </text>
+            </div>
+          </div>
+          <div className={styles.optionButtonContainer}>
+            <Button className={styles.cancelButton} icon="cross" />
+          </div>
         </div>
-        <div className={styles.optionButtonContainer}>
-          <button className={styles.finishedButton}>
-            finished
-          </button>
-          <button className={styles.cancelButton} onClick={async () => closeTask(props.task)}>
-            Cancel
-          </button>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <div className={styles.componentBody}>
+          <div className={styles.textContainer}>
+            <div className={styles.descryptionTextContainer}>
+            <text className={styles.descriptionText}>
+              {props.description}
+            </text>
+            </div>
+            <div className={styles.categoryTextConatiner}>
+            <text className={styles.categoryText}>
+              {getCategory(props.category)}
+            </text>
+            </div>
+          </div>
+          <div className={styles.optionButtonContainer}>
+            <Button className={styles.finishedButton} icon="tick"/>
+            <Button className={styles.cancelButton} icon="cross" />
+          </div>
         </div>
-      </div>
-    </>
-  )
+      </>
+    )
+  }
 }
 
 function getCategory(category: Category): string {
