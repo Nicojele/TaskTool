@@ -1,34 +1,24 @@
-'use client'
-
-import { Task } from "@prisma/client";
+'use client';
 import styles from "./history.module.css";
-import { useEffect, useState } from "react";
 import TaskComponent from "../components/taskComponent";
-import prisma from "../../../lib/prisma";
+import { Category } from "@prisma/client";
 
-export default async function showOrderView(): Promise<JSX.Element> {
 
-  const tasks = await prisma.task.findMany();
-  const finishedTasks: Array<Task> = [];
-  for (let index = 0; index < tasks.length; index++) {
-    const task = tasks[index];
-    if (task.finished) {
-      finishedTasks.push(task);
-    }  
-  }
-  console.log(finishedTasks)
-
+export default function showOrderView() {
   return (
     <>
       <div className={styles.body}>
         <div className={styles.historyContainer}>
           <div className={styles.content}>
-            {finishedTasks.map((task) => (
+            {/* {finishedTasks.map((task) => (
               <TaskComponent category={task.category} description={task.description} finished={true}></TaskComponent>
-              ))}
+              ))} */}
+            <TaskComponent category={Category.Dringend} description="amchgsd" finished={true}></TaskComponent>
+            <TaskComponent category={Category.Dringend} description="amchgsd" finished={true}></TaskComponent>
+            <TaskComponent category={Category.Dringend} description="amchgsd" finished={true}></TaskComponent>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
