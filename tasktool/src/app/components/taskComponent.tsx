@@ -1,6 +1,8 @@
-import { Category } from "@prisma/client";
+import { Category, Task } from "@prisma/client";
 import styles from "./components.module.css";
 import { Button } from '@blueprintjs/core';
+import { NextResponse } from "next/server";
+import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
 
 type taskComponentProps = {
   description: string
@@ -73,4 +75,18 @@ function getCategory(category: Category): string {
   }
 
   return res;
+}
+
+async function closeTask(taskToClose: Task) {
+
+  const data: deleteTaskRequest = {id: taskToClose.id, category: taskToClose.category, createdAt: taskToClose.createtAt, description: taskToClose.description, finished: true, finishedAt: new Date(),};
+
+  const res = await fetch("/api/task", {
+    method: "DELETE",
+    body: JSON.stringify(data),
+    headers: {'Content-Type': 'application/json'},
+  })
+  location.reload();
+
+  return NextResponse.json({ res })
 }

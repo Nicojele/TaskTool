@@ -101,17 +101,6 @@
   background: grey;
 }
 
-.taskContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 2px;
-  border-color: black;
-  border-style: solid;
-  border-bottom-style: none;
-}
-
-
 .dropdownContent a:hover {background-color: #ddd;}
 
 

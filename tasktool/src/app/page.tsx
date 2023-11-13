@@ -1,16 +1,14 @@
 'use client'
 
-import Image from 'next/image'
 import styles from './page.module.css'
-import { toUnicode } from 'punycode'
-import TaskComponent from './components/taskComponent'
-import { Category } from '@prisma/client'
+import { Category, Task } from '@prisma/client'
 import { createTaskRequest } from './createTaskRequest/createTaskRequest'
-import { useState } from 'react'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import TaskComponent from './components/taskComponent'
 
 interface TaskToolState {
   category: Category | undefined
+  tasks: Task[]
 }
 
 type TaskToolProps = {
@@ -20,7 +18,22 @@ type TaskToolProps = {
 export default function Home(props: TaskToolProps) {
   const [state, setState] = useState<TaskToolState>({
     category: undefined,
+    tasks: []
   });
+
+  useEffect(() => {
+    async function fetchData() {
+      const req = await fetch("api/task", {
+        method: "GET",
+        headers: {"Content-Type" : "application/json"}
+      })
+      const res = await req.json()
+
+      setState({ category: state.category, tasks: res.res })
+    }
+
+    fetchData();
+  }, [])
 
   return (
     <main className={styles.main}>
@@ -39,14 +52,14 @@ export default function Home(props: TaskToolProps) {
           <div className={styles.dropdown}>
             <button className={styles.dropbtn}>Dringlichkeit</button>
             <div className={styles.dropdownContent}>
-              <a href="#" onClick={() => setState({ category: Category.WichtigDringend })}>wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Wichtig })}>wichtig & nicht dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Dringend })}>nicht wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Unwichtig })}>nicht wichtig & nicht dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.WichtigDringend, tasks: state.tasks })}>wichtig & dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Wichtig, tasks: state.tasks })}>wichtig & nicht dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Dringend, tasks: state.tasks })}>nicht wichtig & dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Unwichtig, tasks: state.tasks })}>nicht wichtig & nicht dringend</a>
             </div>
           </div>
           <div>
-          <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
+            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
           </div>
       </div>
 
@@ -59,6 +72,13 @@ export default function Home(props: TaskToolProps) {
           <h2>
           wichtig & dringend
           </h2>
+          <div className={styles.taskContainer}>
+            {/* {state.tasks.map((task) => (
+              task.category == Category.WichtigDringend ? (
+                <TaskComponent task={task} key={task.id}></TaskComponent>
+              ) : null
+            ))} */}
+          </div>
             <div>
               <p>Find in-depth information about Next.js features and API.</p>
             </div>
@@ -72,6 +92,13 @@ export default function Home(props: TaskToolProps) {
           <h2>
           wichtig & nicht dringend
           </h2>
+            <div className={styles.taskContainer}>
+            {/* {state.tasks.map((task) => (
+              task.category == Category.Wichtig ? (
+                <TaskComponent task={task} key={task.id}></TaskComponent>
+              ) : null
+            ))} */}
+          </div>
             <div>
             <TaskComponent category={Category.WichtigDringend} description='Show Component' finished={false}></TaskComponent>
             <TaskComponent category={Category.WichtigDringend} description='Create a new Task' finished={false}></TaskComponent>
@@ -88,6 +115,13 @@ export default function Home(props: TaskToolProps) {
           <h2>
           nicht wichtig & dringend
           </h2>
+            <div className={styles.taskContainer}>
+            {/* {state.tasks.map((task) => (
+              task.category == Category.Dringend ? (
+                <TaskComponent task={task} key={task.id}></TaskComponent>
+              ) : null
+            ))} */}
+          </div>
             <div>
               <p>Explore the Next.js 13 playground.</p>
             </div>
@@ -101,6 +135,13 @@ export default function Home(props: TaskToolProps) {
           <h2>
           nicht wichtig & nicht dringend
           </h2>
+            <div className={styles.taskContainer}>
+            {/* {state.tasks.map((task) => (
+              task.category == Category.Unwichtig ? (
+                <TaskComponent task={task} key={task.id}></TaskComponent>
+              ) : null
+            ))} */}
+          </div>
             <div>
               <p>Instantly deploy your Next.js site to a shareable URL with Vercel. </p>
             </div>
@@ -129,6 +170,8 @@ async function createTask(category: Category) {
       .catch(error => {
         console.error(error);
       })
+  
+  location.reload();
 }
 
 /* Zeichen zum kopieren:
