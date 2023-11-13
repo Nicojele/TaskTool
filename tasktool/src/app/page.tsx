@@ -9,6 +9,7 @@ import TaskComponent from './components/taskComponent'
 interface TaskToolState {
   category: Category | undefined
   tasks: Task[]
+  buttonText: string
 }
 
 type TaskToolProps = {
@@ -18,7 +19,8 @@ type TaskToolProps = {
 export default function Home(props: TaskToolProps) {
   const [state, setState] = useState<TaskToolState>({
     category: undefined,
-    tasks: []
+    tasks: [],
+    buttonText: "Dringlichkeit"
   });
 
   useEffect(() => {
@@ -29,11 +31,12 @@ export default function Home(props: TaskToolProps) {
       })
       const res = await req.json()
 
-      setState({ category: state.category, tasks: res.res })
+      setState({ category: state.category, tasks: res.res, buttonText: "Dringlichkeit" })
     }
 
     fetchData();
   }, [])
+
 
   return (
     <main className={styles.main}>
@@ -50,12 +53,12 @@ export default function Home(props: TaskToolProps) {
             </div> */}
           </div>
           <div className={styles.dropdown}>
-            <button className={styles.dropbtn}>Dringlichkeit</button>
+            <button className={styles.dropbtn}>{state.buttonText}</button>
             <div className={styles.dropdownContent}>
-              <a href="#" onClick={() => setState({ category: Category.WichtigDringend, tasks: state.tasks })}>wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Wichtig, tasks: state.tasks })}>wichtig & nicht dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Dringend, tasks: state.tasks })}>nicht wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Unwichtig, tasks: state.tasks })}>nicht wichtig & nicht dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.WichtigDringend, buttonText: "Wichtig & dringend", tasks: state.tasks })}>wichtig & dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Wichtig, buttonText: "Wichtig & nicht dringend", tasks: state.tasks })}>wichtig & nicht dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Dringend, buttonText: "Dringend & nicht wichtig", tasks: state.tasks })}>nicht wichtig & dringend</a>
+              <a href="#" onClick={() => setState({ category: Category.Unwichtig, buttonText: "nicht dringend & nicht wichtig", tasks: state.tasks })}>nicht wichtig & nicht dringend</a>
             </div>
           </div>
           <div>
