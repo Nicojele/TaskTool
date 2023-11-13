@@ -37,6 +37,33 @@ export default function Home(props: TaskToolProps) {
     fetchData();
   }, [])
 
+  function Dropdown() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleItemClick = (category: Category, buttonText: string) => {
+      setState({ category: category, buttonText: buttonText, tasks: state.tasks })
+      setIsOpen(false); // Close the dropdown after selecting an item
+    };
+
+    return (
+      <div>
+        <button className={styles.dropbtn} onClick={toggleDropdown}>{state.buttonText}</button>
+          {isOpen && (
+            <div className={styles.dropdownContent}>
+              <a onClick={() => handleItemClick(Category.WichtigDringend, "Wichtig & dringend")}>wichtig & dringend</a>
+              <a onClick={() => handleItemClick(Category.Wichtig,"Wichtig & nicht dringend")}>wichtig & nicht dringend</a>
+              <a onClick={() => handleItemClick(Category.Dringend, "Dringend & nicht wichtig")}>nicht wichtig & dringend</a>
+              <a onClick={() => handleItemClick(Category.Unwichtig, "nicht dringend & nicht wichtig")}>nicht wichtig & nicht dringend</a>
+            </div>
+          )}
+        </div>
+    );
+  }
+
 
   return (
     <main className={styles.main}>
@@ -44,22 +71,16 @@ export default function Home(props: TaskToolProps) {
           <div>
             <input className={styles.textField} id='description' type="beschreibung" name="task"></input>
           </div>
-          <div className={styles.dropdown}>
-            {/* <button className={styles.dropbtn}>Projekt</button>
+          {/* <div className={styles.dropdown}>
+            <button className={styles.dropbtn}>Projekt</button>
             <div className={styles.dropdownContent}>
               <a href="#">Projekt 1</a>
               <a href="#">Projekt 2</a>                   Wird später benötigt!!!
               <a href="#">Projekt 3</a>
-            </div> */}
-          </div>
-          <div className={styles.dropdown}>
-            <button className={styles.dropbtn}>{state.buttonText}</button>
-            <div className={styles.dropdownContent}>
-              <a href="#" onClick={() => setState({ category: Category.WichtigDringend, buttonText: "Wichtig & dringend", tasks: state.tasks })}>wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Wichtig, buttonText: "Wichtig & nicht dringend", tasks: state.tasks })}>wichtig & nicht dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Dringend, buttonText: "Dringend & nicht wichtig", tasks: state.tasks })}>nicht wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Unwichtig, buttonText: "nicht dringend & nicht wichtig", tasks: state.tasks })}>nicht wichtig & nicht dringend</a>
             </div>
+          </div> */}
+          <div className={styles.dropdown}>
+            <Dropdown></Dropdown>
           </div>
           <div>
             <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
