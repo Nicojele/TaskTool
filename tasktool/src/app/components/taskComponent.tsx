@@ -5,25 +5,23 @@ import { NextResponse } from "next/server";
 import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
 
 type taskComponentProps = {
-  description: string
-  category: Category
-  finished: boolean
+  task: Task
 }
 
 export default function TaskComponent(props: taskComponentProps) {
-  if (props.finished == true) {
+  if (props.task.finished == true) {
     return (
       <>
         <div className={styles.componentBody}>
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
             <text className={styles.descriptionText}>
-              {props.description}
+              {props.task.description}
             </text>
             </div>
             <div className={styles.categoryTextConatiner}>
             <text className={styles.categoryText}>
-              {getCategory(props.category)}
+              {getCategory(props.task.category)}
             </text>
             </div>
           </div>
@@ -40,12 +38,12 @@ export default function TaskComponent(props: taskComponentProps) {
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
             <text className={styles.descriptionText}>
-              {props.description}
+              {props.task.description}
             </text>
             </div>
             <div className={styles.categoryTextConatiner}>
             <text className={styles.categoryText}>
-              {getCategory(props.category)}
+              {getCategory(props.task.category)}
             </text>
             </div>
           </div>

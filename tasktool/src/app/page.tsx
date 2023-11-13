@@ -73,15 +73,12 @@ export default function Home(props: TaskToolProps) {
           wichtig & dringend
           </h2>
           <div className={styles.taskContainer}>
-            {/* {state.tasks.map((task) => (
+            {state.tasks.map((task) => (
               task.category == Category.WichtigDringend ? (
                 <TaskComponent task={task} key={task.id}></TaskComponent>
               ) : null
-            ))} */}
+            ))}
           </div>
-            <div>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </div>
         </a>
 
         <a
@@ -93,18 +90,12 @@ export default function Home(props: TaskToolProps) {
           wichtig & nicht dringend
           </h2>
             <div className={styles.taskContainer}>
-            {/* {state.tasks.map((task) => (
+            {state.tasks.map((task) => (
               task.category == Category.Wichtig ? (
                 <TaskComponent task={task} key={task.id}></TaskComponent>
               ) : null
-            ))} */}
+            ))}
           </div>
-            <div>
-            <TaskComponent category={Category.WichtigDringend} description='Show Component' finished={false}></TaskComponent>
-            <TaskComponent category={Category.WichtigDringend} description='Create a new Task' finished={false}></TaskComponent>
-            <TaskComponent category={Category.WichtigDringend} description='PR`s mergen' finished={false}></TaskComponent>
-            <TaskComponent category={Category.WichtigDringend} description='Eine viel zu lange beschreibung um zu schauen wie das aussieht' finished={false}></TaskComponent>
-            </div>
         </a>
 
         <a
@@ -116,15 +107,12 @@ export default function Home(props: TaskToolProps) {
           nicht wichtig & dringend
           </h2>
             <div className={styles.taskContainer}>
-            {/* {state.tasks.map((task) => (
+            {state.tasks.map((task) => (
               task.category == Category.Dringend ? (
                 <TaskComponent task={task} key={task.id}></TaskComponent>
               ) : null
-            ))} */}
+            ))}
           </div>
-            <div>
-              <p>Explore the Next.js 13 playground.</p>
-            </div>
         </a>
 
         <a
@@ -136,15 +124,12 @@ export default function Home(props: TaskToolProps) {
           nicht wichtig & nicht dringend
           </h2>
             <div className={styles.taskContainer}>
-            {/* {state.tasks.map((task) => (
+            {state.tasks.map((task) => (
               task.category == Category.Unwichtig ? (
                 <TaskComponent task={task} key={task.id}></TaskComponent>
               ) : null
-            ))} */}
+            ))}
           </div>
-            <div>
-              <p>Instantly deploy your Next.js site to a shareable URL with Vercel. </p>
-            </div>
         </a>
       </div>
     </main>

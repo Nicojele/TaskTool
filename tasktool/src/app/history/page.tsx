@@ -42,7 +42,7 @@ const [state, setState] = useState<HistoryState>({
         <div className={styles.historyContainer}>
           <div className={styles.content}>
             {state.tasks.map((task) => (
-              <TaskComponent category={task.category} description={task.description} finished={true}></TaskComponent>
+              <TaskComponent task={task} key={task.id}></TaskComponent>
               ))}
           </div>
         </div>
