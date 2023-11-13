@@ -1,6 +1,8 @@
-import { Category } from "@prisma/client";
+import { Category, Task } from "@prisma/client";
 import styles from "./components.module.css";
 import { Button } from '@blueprintjs/core';
+import { NextResponse } from "next/server";
+import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
 
 type taskComponentProps = {
   description: string
