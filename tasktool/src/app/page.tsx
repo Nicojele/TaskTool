@@ -155,6 +155,8 @@ async function createTask(category: Category) {
       .catch(error => {
         console.error(error);
       })
+  
+  location.reload();
 }
 
 /* Zeichen zum kopieren:
