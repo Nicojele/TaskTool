@@ -32,11 +32,10 @@ export default function Home(props: TaskToolProps) {
         headers: {"Content-Type" : "application/json"}
       })
       const res = await req.json()
-      
+
       const input = (document.getElementById("description") as HTMLInputElement);
       input.addEventListener("input", function () {
         const regex = /[^a-zA-Z0-9\s]/;
-        console.log(state)
         setState({ buttonText: state.buttonText, category: state.category, createInput: regex.test(input.value), tasks: res.res })
       });
       
@@ -45,8 +44,6 @@ export default function Home(props: TaskToolProps) {
 
     fetchData();
   }, [])
-
-  console.log(state);
 
   function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +54,7 @@ export default function Home(props: TaskToolProps) {
 
     const handleItemClick = (category: Category, buttonText: string) => {
       setState({ category: category, buttonText: buttonText, tasks: state.tasks, createInput: state.createInput })
-      setIsOpen(false); // Close the dropdown after selecting an item
+      setIsOpen(false);
     };
 
     return (
