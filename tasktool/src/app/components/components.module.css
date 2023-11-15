@@ -43,7 +43,10 @@
 }
 
 .descryptionTextContainer {
+  max-width: 40%;
   width: 40%;
+  border: 0px;
+  word-wrap: break-word;
   text-align: left;
 }
 
