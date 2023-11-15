@@ -95,9 +95,8 @@ export default function Home(props: TaskToolProps) {
       </div>
 
       <div className={styles.grid}>
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -110,11 +109,10 @@ export default function Home(props: TaskToolProps) {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
 
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -127,11 +125,10 @@ export default function Home(props: TaskToolProps) {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
 
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -144,11 +141,10 @@ export default function Home(props: TaskToolProps) {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
 
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -161,7 +157,7 @@ export default function Home(props: TaskToolProps) {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
       </div>
     </main>
   )
