@@ -10,6 +10,7 @@ interface TaskToolState {
   category: Category | undefined
   tasks: Task[]
   buttonText: string
+  createInput: boolean
 }
 
 type TaskToolProps = {
@@ -20,7 +21,8 @@ export default function Home(props: TaskToolProps) {
   const [state, setState] = useState<TaskToolState>({
     category: undefined,
     tasks: [],
-    buttonText: "Dringlichkeit"
+    buttonText: "Dringlichkeit",
+    createInput: true
   });
 
   useEffect(() => {
@@ -31,7 +33,13 @@ export default function Home(props: TaskToolProps) {
       })
       const res = await req.json()
 
-      setState({ category: state.category, tasks: res.res, buttonText: "Dringlichkeit" })
+      const input = (document.getElementById("description") as HTMLInputElement);
+      input.addEventListener("input", function () {
+        const regex = /[^a-zA-Z0-9\s]/;
+        setState({ buttonText: state.buttonText, category: state.category, createInput: regex.test(input.value), tasks: res.res })
+      });
+      
+      setState({ category: state.category, tasks: res.res, buttonText: "Dringlichkeit", createInput: state.createInput })
     }
 
     fetchData();
@@ -45,8 +53,8 @@ export default function Home(props: TaskToolProps) {
     };
 
     const handleItemClick = (category: Category, buttonText: string) => {
-      setState({ category: category, buttonText: buttonText, tasks: state.tasks })
-      setIsOpen(false); // Close the dropdown after selecting an item
+      setState({ category: category, buttonText: buttonText, tasks: state.tasks, createInput: state.createInput })
+      setIsOpen(false);
     };
 
     return (
@@ -82,7 +90,7 @@ export default function Home(props: TaskToolProps) {
             <Dropdown></Dropdown>
           </div>
           <div>
-            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
+            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}} disabled={state.createInput}>✓</button>
           </div>
       </div>
 
