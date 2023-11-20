@@ -5,6 +5,7 @@ import { Category, Task } from '@prisma/client'
 import { createTaskRequest } from './createTaskRequest/createTaskRequest'
 import { useEffect, useState } from 'react'
 import TaskComponent from './components/taskComponent'
+import { Button, Icon } from '@blueprintjs/core'
 
 interface TaskToolState {
   category: Category | undefined
@@ -13,11 +14,7 @@ interface TaskToolState {
   createInput: boolean
 }
 
-type TaskToolProps = {
-  category: Category
-}
-
-export default function Home(props: TaskToolProps) {
+export default function Home() {
   const [state, setState] = useState<TaskToolState>({
     category: undefined,
     tasks: [],
@@ -90,8 +87,8 @@ export default function Home(props: TaskToolProps) {
             <Dropdown></Dropdown>
           </div>
           <div>
-            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}} disabled={state.createInput}>✓</button>
-          </div>
+          <Button className={styles.createTaskButton} onClick={async () => { if (state.category !== undefined) { createTask(state.category) } }} disabled={state.createInput} rightIcon="tick"></Button>
+        </div>
       </div>
 
       <div className={styles.grid}>

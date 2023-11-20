@@ -8,7 +8,7 @@ interface HistoryState {
   tasks: Array<Task>
 }
 
-export default function showOrderView() {
+export default function ShowOrderView() {
 const [state, setState] = useState<HistoryState>({
     tasks: []
   });
@@ -49,7 +49,6 @@ const [state, setState] = useState<HistoryState>({
             <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "Ich mache test beschreibungen die wieder viel zu lang werden um das Verhalten der Task beobachten zu können damit alle Leute die dieses Tool nutrzen wollen damit zu frieden sind.", finished: true, finishedAt: new Date(), id: 1}}></TaskComponent>
             <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "Das wird eine etwas kürzere Task Um alle längen mal gesehen zu haben sonst wäre das ja unvollständig", finished: true, finishedAt: new Date(), id: 1}}></TaskComponent>
             <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "1", finished: true, finishedAt: new Date(), id: 1}}></TaskComponent>
-
           </div>
         </div>
       </div>
