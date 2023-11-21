@@ -3,14 +3,19 @@ import styles from "./history.module.css";
 import TaskComponent from "../components/taskComponent";
 import { Category, Task } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { Button } from "@blueprintjs/core";
 
 interface HistoryState {
   tasks: Array<Task>
+  isFiltered: boolean
+  filteredTasks: Array<Task>
 }
 
 export default function showOrderView() {
-const [state, setState] = useState<HistoryState>({
-    tasks: []
+  const [state, setState] = useState<HistoryState>({
+    tasks: [],
+    isFiltered: false,
+    filteredTasks: []
   });
 
   useEffect(() => {
@@ -29,24 +34,80 @@ const [state, setState] = useState<HistoryState>({
           finishedTasks.push(task)
         }
       }
-      setState({ tasks: finishedTasks })
+      setState({ tasks: finishedTasks, filteredTasks: [], isFiltered: false })
     }
 
     fetchData();
   }, [])
 
-
-  return (
-    <>
-      <div className={styles.body}>
-        <div className={styles.historyContainer}>
-          <div className={styles.content}>
-            {state.tasks.map((task) => (
-              <TaskComponent task={task} key={task.id}></TaskComponent>
-              ))}
+  function Dropdown() {
+    return (
+      <div className={styles.bar}>
+        <div className={styles.dropdown}>
+          <Button icon="filter"></Button>
+          <div className={styles.dropdownContent}>
+            <a href="#" onClick={() => setState({ filteredTasks: [], isFiltered: false, tasks: state.tasks })}>Ohne Filter</a>
+            <a href="#" onClick={() => filterTasks(Category.WichtigDringend)}>wichtig & dringend</a>
+            <a href="#" onClick={() => filterTasks(Category.Wichtig)}>wichtig & nicht dringend</a>
+            <a href="#" onClick={() => filterTasks(Category.Dringend)}>nicht wichtig & dringend</a>
+            <a href="#" onClick={() => filterTasks(Category.Unwichtig)}>nicht wichtig & nicht dringend</a>
           </div>
         </div>
       </div>
-    </>
-  );
+    )
+  }
+
+  function filterTasks(category: Category) {
+    const filteredTasks: Array<Task> = [];
+    for (let index = 0; index < state.tasks.length; index++) {
+      const task = state.tasks[index];
+      if (task.category == category) {
+        filteredTasks.push(task);
+      }
+    }
+
+    setState({ filteredTasks: filteredTasks, isFiltered: true, tasks: state.tasks })
+  }
+
+  if (state.isFiltered == false) {
+    return (
+      <>
+        <div className={styles.body}>
+          <Dropdown/>
+          <div className={styles.historyContainer}>
+            <div className={styles.content}>
+              {state.tasks.map((task) => (
+                <TaskComponent task={task} key={task.id}></TaskComponent>
+              ))}
+              <TaskComponent task={{ category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 1 }} key={1}></TaskComponent>
+              <TaskComponent task={{category: Category.Dringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 2}} key={2}></TaskComponent>
+              <TaskComponent task={{category: Category.Wichtig, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 3}} key={3}></TaskComponent>
+              <TaskComponent task={{category: Category.Unwichtig, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 4}} key={4}></TaskComponent>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (state.isFiltered == true) {
+    return (
+      <>
+        <div className={styles.body}>
+          <Dropdown/>
+          <div className={styles.historyContainer}>
+            <div className={styles.content}>
+              {state.filteredTasks.map((task) => (
+                <TaskComponent task={task} key={task.id}></TaskComponent>
+              ))}
+              <TaskComponent task={{ category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 1 }} key={1}></TaskComponent>
+              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 2}} key={2}></TaskComponent>
+              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 3}} key={3}></TaskComponent>
+              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 4}} key={4}></TaskComponent>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 }
