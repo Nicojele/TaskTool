@@ -3,6 +3,7 @@ import styles from "./components.module.css";
 import { Button } from '@blueprintjs/core';
 import { NextResponse } from "next/server";
 import { deleteTaskRequest } from "../deleteTaskRequest/deleteTaskRequest";
+import { updateTaskRequest } from "../updateTaskRequest/updateTaskRequest";
 
 type taskComponentProps = {
   task: Task
@@ -48,7 +49,7 @@ export default function TaskComponent(props: taskComponentProps) {
             </div>
           </div>
           <div className={styles.optionButtonContainer}>
-            <Button className={styles.finishedButton} icon="tick"/>
+            <Button className={styles.finishedButton} onClick={async () => finishTask(props.task)} icon="tick"/>
             <Button className={styles.cancelButton} onClick={async () => closeTask(props.task)} icon="cross" />
           </div>
         </div>
@@ -87,4 +88,13 @@ async function closeTask(taskToClose: Task) {
   location.reload();
 
   return NextResponse.json({ res })
+}
+
+async function finishTask(taskToFinish: Task) {
+  
+  const data: updateTaskRequest = { category: taskToFinish.category, createdAt: taskToFinish.createtAt, description: taskToFinish.description, finished: taskToFinish.finished, id: taskToFinish.id, finishedAt: taskToFinish.finishedAt }
+
+  await fetch("/api/task", { method: "PUT", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+
+  location.reload();
 }
