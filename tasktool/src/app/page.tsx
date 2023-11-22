@@ -9,6 +9,8 @@ import TaskComponent from './components/taskComponent'
 interface TaskToolState {
   category: Category | undefined
   tasks: Task[]
+  buttonText: string
+  createInput: boolean
 }
 
 type TaskToolProps = {
@@ -18,7 +20,9 @@ type TaskToolProps = {
 export default function Home(props: TaskToolProps) {
   const [state, setState] = useState<TaskToolState>({
     category: undefined,
-    tasks: []
+    tasks: [],
+    buttonText: "Dringlichkeit",
+    createInput: true
   });
 
   useEffect(() => {
@@ -29,37 +33,64 @@ export default function Home(props: TaskToolProps) {
       })
       const res = await req.json()
 
-      setState({ category: state.category, tasks: res.res })
+      const input = (document.getElementById("description") as HTMLInputElement);
+      input.addEventListener("input", function () {
+        const regex = /[^a-zA-Z0-9\s]/;
+        setState({ buttonText: state.buttonText, category: state.category, createInput: regex.test(input.value), tasks: res.res })
+      });
+      
+      setState({ category: state.category, tasks: res.res, buttonText: "Dringlichkeit", createInput: state.createInput })
     }
 
     fetchData();
   }, [])
-  
+
+  function Dropdown() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleItemClick = (category: Category, buttonText: string) => {
+      setState({ category: category, buttonText: buttonText, tasks: state.tasks, createInput: state.createInput })
+      setIsOpen(false);
+    };
+
+    return (
+      <div>
+        <button className={styles.dropbtn} onClick={toggleDropdown}>{state.buttonText}</button>
+          {isOpen && (
+            <div className={styles.dropdownContent}>
+              <a onClick={() => handleItemClick(Category.WichtigDringend, "Wichtig & dringend")}>wichtig & dringend</a>
+              <a onClick={() => handleItemClick(Category.Wichtig,"Wichtig & nicht dringend")}>wichtig & nicht dringend</a>
+              <a onClick={() => handleItemClick(Category.Dringend, "Dringend & nicht wichtig")}>nicht wichtig & dringend</a>
+              <a onClick={() => handleItemClick(Category.Unwichtig, "nicht dringend & nicht wichtig")}>nicht wichtig & nicht dringend</a>
+            </div>
+          )}
+        </div>
+    );
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
           <div>
             <input className={styles.textField} id='description' type="beschreibung" name="task"></input>
           </div>
-          <div className={styles.dropdown}>
-            {/* <button className={styles.dropbtn}>Projekt</button>
+          {/* <div className={styles.dropdown}>
+            <button className={styles.dropbtn}>Projekt</button>
             <div className={styles.dropdownContent}>
               <a href="#">Projekt 1</a>
               <a href="#">Projekt 2</a>                   Wird später benötigt!!!
               <a href="#">Projekt 3</a>
-            </div> */}
-          </div>
-          <div className={styles.dropdown}>
-            <button className={styles.dropbtn}>Dringlichkeit</button>
-            <div className={styles.dropdownContent}>
-              <a href="#" onClick={() => setState({ category: Category.WichtigDringend, tasks: state.tasks })}>wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Wichtig, tasks: state.tasks })}>wichtig & nicht dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Dringend, tasks: state.tasks })}>nicht wichtig & dringend</a>
-              <a href="#" onClick={() => setState({ category: Category.Unwichtig, tasks: state.tasks })}>nicht wichtig & nicht dringend</a>
             </div>
+          </div> */}
+          <div className={styles.dropdown}>
+            <Dropdown></Dropdown>
           </div>
           <div>
-            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
+            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}} disabled={state.createInput}>✓</button>
           </div>
       </div>
 
