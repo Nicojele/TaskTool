@@ -15,18 +15,18 @@ export default function TaskComponent(props: taskComponentProps) {
         <div className={styles.componentBody}>
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
-            <text className={styles.descriptionText}>
+            <a className={styles.descriptionText}>
               {props.task.description}
-            </text>
+            </a>
             </div>
             <div className={styles.categoryTextConatiner}>
-            <text className={styles.categoryText}>
+            <a className={styles.categoryText}>
               {getCategory(props.task.category)}
-            </text>
+            </a>
             </div>
           </div>
           <div className={styles.optionButtonContainer}>
-            <Button className={styles.cancelButton} icon="cross" />
+            <Button className={styles.cancelButton} onClick={async () => closeTask(props.task)} icon="cross" />
           </div>
         </div>
       </>
@@ -37,19 +37,19 @@ export default function TaskComponent(props: taskComponentProps) {
         <div className={styles.componentBody}>
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
-            <text className={styles.descriptionText}>
+            <a className={styles.descriptionText}>
               {props.task.description}
-            </text>
+            </a>
             </div>
             <div className={styles.categoryTextConatiner}>
-            <text className={styles.categoryText}>
+            <a className={styles.categoryText}>
               {getCategory(props.task.category)}
-            </text>
+            </a>
             </div>
           </div>
           <div className={styles.optionButtonContainer}>
             <Button className={styles.finishedButton} icon="tick"/>
-            <Button className={styles.cancelButton} icon="cross" />
+            <Button className={styles.cancelButton} onClick={async () => closeTask(props.task)} icon="cross" />
           </div>
         </div>
       </>

@@ -41,9 +41,15 @@ const [state, setState] = useState<HistoryState>({
       <div className={styles.body}>
         <div className={styles.historyContainer}>
           <div className={styles.content}>
-            {state.tasks.map((task) => (
+            {/* {state.tasks.map((task) => (
               <TaskComponent task={task} key={task.id}></TaskComponent>
-              ))}
+              ))} */}
+            <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "Ich mache tests", finished: true, finishedAt: new Date(), id: 1 }}></TaskComponent>
+            <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "tests2", finished: true, finishedAt: new Date(), id: 1 }}></TaskComponent>
+            <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "Ich mache test beschreibungen die wieder viel zu lang werden um das Verhalten der Task beobachten zu können damit alle Leute die dieses Tool nutrzen wollen damit zu frieden sind.", finished: true, finishedAt: new Date(), id: 1}}></TaskComponent>
+            <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "Das wird eine etwas kürzere Task Um alle längen mal gesehen zu haben sonst wäre das ja unvollständig", finished: true, finishedAt: new Date(), id: 1}}></TaskComponent>
+            <TaskComponent task={{ category: Category.Dringend, createtAt: new Date(), description: "1", finished: true, finishedAt: new Date(), id: 1}}></TaskComponent>
+
           </div>
         </div>
       </div>
