@@ -79,10 +79,6 @@ export default function showOrderView() {
               {state.tasks.map((task) => (
                 <TaskComponent task={task} key={task.id}></TaskComponent>
               ))}
-              <TaskComponent task={{ category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 1 }} key={1}></TaskComponent>
-              <TaskComponent task={{category: Category.Dringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 2}} key={2}></TaskComponent>
-              <TaskComponent task={{category: Category.Wichtig, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 3}} key={3}></TaskComponent>
-              <TaskComponent task={{category: Category.Unwichtig, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 4}} key={4}></TaskComponent>
             </div>
           </div>
         </div>
@@ -100,10 +96,6 @@ export default function showOrderView() {
               {state.filteredTasks.map((task) => (
                 <TaskComponent task={task} key={task.id}></TaskComponent>
               ))}
-              <TaskComponent task={{ category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 1 }} key={1}></TaskComponent>
-              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 2}} key={2}></TaskComponent>
-              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 3}} key={3}></TaskComponent>
-              <TaskComponent task={{category: Category.WichtigDringend, createtAt: new Date(), description: "bvsafduzgihsfbas", finished: true, finishedAt: new Date(), id: 4}} key={4}></TaskComponent>
             </div>
           </div>
         </div>
