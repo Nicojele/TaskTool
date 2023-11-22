@@ -38,8 +38,17 @@ export default function Home(props: TaskToolProps) {
         const regex = /[^a-zA-Z0-9\s]/;
         setState({ buttonText: state.buttonText, category: state.category, createInput: regex.test(input.value), tasks: res.res })
       });
+
+      const tasks: Array<Task> = [];
+
+      for (let index = 0; index < res.res.length; index++) {
+        const task = res.res[index];
+        if (!task.finished) {
+          tasks.push(task);
+        }
+      }
       
-      setState({ category: state.category, tasks: res.res, buttonText: "Dringlichkeit", createInput: state.createInput })
+      setState({ category: state.category, tasks: tasks, buttonText: "Dringlichkeit", createInput: state.createInput })
     }
 
     fetchData();
