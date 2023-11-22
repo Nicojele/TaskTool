@@ -11,7 +11,7 @@ interface HistoryState {
   filteredTasks: Array<Task>
 }
 
-export default function showOrderView() {
+export default function ShowOrderView() {
   const [state, setState] = useState<HistoryState>({
     tasks: [],
     isFiltered: false,
