@@ -42,3 +42,22 @@ export async function DELETE(
 
   return NextResponse.json({ res })
 }
+
+export async function PUT(
+  req: NextRequest
+) {
+  
+  const data = await req.json();
+
+  const res = await prisma.task.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      finished: true,
+      finishedAt: new Date()
+    }
+  })
+
+  return NextResponse.json({ res })
+}
