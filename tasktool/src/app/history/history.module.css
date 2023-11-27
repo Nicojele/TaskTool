@@ -43,6 +43,10 @@
   z-index: 1;
 }
 
+.dropbtn {
+  width: 200px;
+}
+
 .dropdownContent a {
   color: black;
   padding: 12px 16px;
