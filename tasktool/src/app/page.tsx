@@ -100,9 +100,8 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -115,11 +114,10 @@ export default function Home() {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
 
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -132,11 +130,10 @@ export default function Home() {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
 
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -149,11 +146,10 @@ export default function Home() {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
 
-        <a
+        <div
           className={styles.card}
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
@@ -166,7 +162,7 @@ export default function Home() {
               ) : null
             ))}
           </div>
-        </a>
+        </div>
       </div>
     </main>
   )
