@@ -41,16 +41,13 @@ export default function ShowOrderView() {
   }, [])
 
   function Dropdown() {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
-
     return (
-      <div>
-        <Button className={styles.dropbtn} icon="filter" onClick={toggleDropdown}></Button>
-          {isOpen && (
+      <main className={styles.main}>
+        <div className={styles.bar}>
+          <div>
+            <Button icon="filter" className={styles.dropbtn}></Button>
+          </div>
+          <div className={styles.dropdown}>
             <div className={styles.dropdownContent}>
               <a href="#" onClick={() => setState({ filteredTasks: [], isFiltered: false, tasks: state.tasks })}>Ohne Filter</a>
               <a href="#" onClick={() => filterTasks(Category.WichtigDringend)}>wichtig & dringend</a>
@@ -58,10 +55,38 @@ export default function ShowOrderView() {
               <a href="#" onClick={() => filterTasks(Category.Dringend)}>nicht wichtig & dringend</a>
               <a href="#" onClick={() => filterTasks(Category.Unwichtig)}>nicht wichtig & nicht dringend</a>
             </div>
-          )}
+          </div>
         </div>
-    );
+      </main>
+    )
   }
+
+  // function Dropdown() {
+  //   const [isOpen, setIsOpen] = useState(false);
+
+  //   const toggleDropdown = () => {
+  //       setIsOpen(!isOpen);
+  //   };
+
+  //   const handleItemClick = (category: Category, buttonText: string) => {
+  //     setState({ category: category, buttonText: buttonText, tasks: state.tasks, createInput: state.createInput })
+  //     setIsOpen(false);
+  //   };
+
+  //   return (
+  //     <div>
+  //       <button className={styles.dropbtn} onClick={toggleDropdown}>{state.buttonText}</button>
+  //         {isOpen && (
+  //           <div className={styles.dropdownContent}>
+  //             <a onClick={() => handleItemClick(Category.WichtigDringend, "Wichtig & dringend")}>wichtig & dringend</a>
+  //             <a onClick={() => handleItemClick(Category.Wichtig,"Wichtig & nicht dringend")}>wichtig & nicht dringend</a>
+  //             <a onClick={() => handleItemClick(Category.Dringend, "Dringend & nicht wichtig")}>nicht wichtig & dringend</a>
+  //             <a onClick={() => handleItemClick(Category.Unwichtig, "nicht dringend & nicht wichtig")}>nicht wichtig & nicht dringend</a>
+  //           </div>
+  //         )}
+  //       </div>
+  //   );
+  // }
 
   function filterTasks(category: Category) {
     const filteredTasks: Array<Task> = [];

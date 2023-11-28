@@ -39,12 +39,9 @@
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
+  max-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba;
   z-index: 1;
-}
-
-.dropbtn {
-  width: 200px;
 }
 
 .dropdownContent a {
@@ -53,6 +50,10 @@
   text-decoration: none;
   display: block;
   background: grey;
+}
+
+.dropbtn {
+  width: 200px;
 }
 
 .dropdownContent a:hover {background-color: #ddd;}
