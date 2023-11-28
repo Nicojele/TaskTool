@@ -41,20 +41,26 @@ export default function ShowOrderView() {
   }, [])
 
   function Dropdown() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
-      <div className={styles.bar}>
-        <div className={styles.dropdown}>
-          <Button icon="filter"></Button>
-          <div className={styles.dropdownContent}>
-            <a href="#" onClick={() => setState({ filteredTasks: [], isFiltered: false, tasks: state.tasks })}>Ohne Filter</a>
-            <a href="#" onClick={() => filterTasks(Category.WichtigDringend)}>wichtig & dringend</a>
-            <a href="#" onClick={() => filterTasks(Category.Wichtig)}>wichtig & nicht dringend</a>
-            <a href="#" onClick={() => filterTasks(Category.Dringend)}>nicht wichtig & dringend</a>
-            <a href="#" onClick={() => filterTasks(Category.Unwichtig)}>nicht wichtig & nicht dringend</a>
-          </div>
+      <div>
+        <Button className={styles.dropbtn} icon="filter" onClick={toggleDropdown}></Button>
+          {isOpen && (
+            <div className={styles.dropdownContent}>
+              <a href="#" onClick={() => setState({ filteredTasks: [], isFiltered: false, tasks: state.tasks })}>Ohne Filter</a>
+              <a href="#" onClick={() => filterTasks(Category.WichtigDringend)}>wichtig & dringend</a>
+              <a href="#" onClick={() => filterTasks(Category.Wichtig)}>wichtig & nicht dringend</a>
+              <a href="#" onClick={() => filterTasks(Category.Dringend)}>nicht wichtig & dringend</a>
+              <a href="#" onClick={() => filterTasks(Category.Unwichtig)}>nicht wichtig & nicht dringend</a>
+            </div>
+          )}
         </div>
-      </div>
-    )
+    );
   }
 
   function filterTasks(category: Category) {
