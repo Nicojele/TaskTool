@@ -38,9 +38,9 @@ export default function TaskComponent(props: taskComponentProps) {
         <div className={styles.componentBody}>
           <div className={styles.textContainer}>
             <div className={styles.descryptionTextContainer}>
-            <a className={styles.descriptionText}>
+            <div className={styles.descriptionText}>
               {props.task.description}
-            </a>
+            </div>
             </div>
             <div className={styles.categoryTextConatiner}>
             <a className={styles.categoryText}>
