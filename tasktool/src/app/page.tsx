@@ -10,7 +10,6 @@ interface TaskToolState {
   category: Category | undefined
   tasks: Task[]
   buttonText: string
-  createInput: boolean
 }
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
     category: undefined,
     tasks: [],
     buttonText: "Dringlichkeit",
-    createInput: true
   });
 
   useEffect(() => {
@@ -37,14 +35,8 @@ export default function Home() {
           tasks.push(task);
         }
       }
-
-      const input = (document.getElementById("description") as HTMLInputElement);
-      input.addEventListener("input", function () {
-        const regex = /[^a-zA-Z0-9\s]/;
-        setState({ buttonText: state.buttonText, category: state.category, createInput: regex.test(input.value), tasks: tasks })
-      });
       
-      setState({ category: state.category, tasks: tasks, buttonText: "Dringlichkeit", createInput: state.createInput })
+      setState({ category: state.category, tasks: tasks, buttonText: "Dringlichkeit" })
     }
 
     fetchData();
@@ -58,7 +50,7 @@ export default function Home() {
     };
 
     const handleItemClick = (category: Category, buttonText: string) => {
-      setState({ category: category, buttonText: buttonText, tasks: state.tasks, createInput: state.createInput })
+      setState({ category: category, buttonText: buttonText, tasks: state.tasks })
       setIsOpen(false);
     };
 
@@ -95,7 +87,7 @@ export default function Home() {
             <Dropdown></Dropdown>
           </div>
           <div>
-            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}} disabled={state.createInput}>✓</button>
+            <button className={styles.button} onClick={async () => { if (state.category !== undefined) { createTask(state.category) }}}>✓</button>
           </div>
       </div>
 
