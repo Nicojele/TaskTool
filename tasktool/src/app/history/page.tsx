@@ -90,11 +90,11 @@ export default function ShowOrderView() {
             </div>
           </div>
           <div className={styles.historyContainer}>
-            <div className={styles.content}>
-              {state.tasks.map((task) => (
+            {state.tasks.map((task) => (
+              <div className={styles.content}>
                 <TaskComponent task={task} key={task.id}></TaskComponent>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </main>
