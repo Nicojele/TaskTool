@@ -47,14 +47,6 @@ export default function Home() {
         <div>
           <CreateTaskForm />
         </div>
-          {/* <div className={styles.dropdown}>
-            <button className={styles.dropbtn}>Projekt</button>
-            <div className={styles.dropdownContent}>
-              <a href="#">Projekt 1</a>
-              <a href="#">Projekt 2</a>                   Wird später benötigt!!!
-              <a href="#">Projekt 3</a>
-            </div>
-          </div> */}
       </div>
 
       <div className={styles.grid}>
@@ -124,35 +116,4 @@ export default function Home() {
       </div>
     </main>
   )
-}
-
-// async function createTask(category: Category) {
-//   const description = (document.getElementById("description") as HTMLInputElement).value;
-
-//   const data: createTaskRequest = { category: category, createdAt: new Date(), description: description, finished: false, finishedAt: undefined, };
-  
-//   (document.getElementById("description") as HTMLInputElement).value = "";
-
-//   await fetch("api/task", {
-//     method: "POST",
-//     body: JSON.stringify(data),
-//     headers: {'Content-Type': 'application/json'},
-//   })
-//     .then(async response => {
-
-//       return response.json();
-//     })
-//     .catch(error => {
-//       console.error(error);
-//     })
-
-//     location.reload();
-//   }
-    
-    
-    /* Zeichen zum kopieren:
-    
-    ✘
-✓
-
-*/
+}   
