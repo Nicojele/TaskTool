@@ -41,10 +41,11 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(50%, auto));
+  grid-template-columns: repeat(2, minmax(50%, 50%));
+  grid-template-rows: repeat(2, minmax(50%, 50%));
   width: var(--max-width);
   overflow-anchor: auto;
-  min-height: 85%;
+  height: 90%;
 }
 
 .card {
@@ -53,6 +54,8 @@
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .card p {
