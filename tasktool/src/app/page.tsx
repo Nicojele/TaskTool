@@ -35,7 +35,7 @@ export default function Home() {
         }
       }
       
-      setState({ category: state.category, tasks: tasks })
+      setState({ category: undefined, tasks: tasks })
     }
 
     fetchData();
