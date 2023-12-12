@@ -16,7 +16,7 @@ export default function CreateTaskForm() {
         <option value={Category.Dringend}>Dringend & nicht wichtig</option>
         <option value={Category.Unwichtig}>nicht dringend & nicht wichtig</option>
       </select>
-      <input className={styles.button} type="submit"/>
+      <input className={styles.button} type="submit" onClick={() => location.reload()}/>
     </form>
   )
 }
