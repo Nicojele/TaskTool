@@ -12,3 +12,47 @@ services:
       - '5432:5432'
     volumes:
       - ./infrastructure/postgres_db:/var/lib/postgresql/data
+
+  engine:
+    image: 5minds/processcube_engine:16.0.0-alpha.2
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - ./.processcube/engine/config/config.json:/etc/engine/config/config.json:ro
+      - ./processes:/processes:ro
+    command: --seed-dir=/processes --port 8000
+    environment:
+      CONFIG_PATH: /etc/engine/config/config.json
+
+  authority:
+    image: 5minds/processcube_authority:2023-2
+    ports:
+      - 11560:11560
+    restart: unless-stopped
+    environment:
+      CONFIG_PATH: /etc/authority/config/config.json
+      UPE_SEED_PATH: /etc/authority/config/upeSeedingData.json
+      LOG_LEVEL: info
+    volumes:
+      - ./.processcube/authority/config.json:/etc/authority/config/config.json
+      - ./.processcube/authority/upeSeedingData.json:/etc/authority/config/upeSeedingData.json
+ 
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: 5minds/processcubeio-app
+    command: sh -c "
+      sleep 10 &&
+      npm run dev"
+    volumes:
+      - ./:/src
+      - /src/node_modules
+      - /src/.next
+    working_dir: /src
+    ports:
+      - '3000:3000'
+    depends_on:
+      - authority
+      - engine

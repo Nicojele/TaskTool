@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@5minds/processcube_app_sdk": "^5.0.1",
     "@blueprintjs/core": "^5.5.1",
     "@prisma/client": "^5.4.2",
     "next": "13.5.4",
