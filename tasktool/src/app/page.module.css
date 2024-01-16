@@ -19,6 +19,14 @@
   margin-bottom: 1rem;
 }
 
+.createTaskContainer {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
 .navbar {
   display: flex;
   flex-direction: row;

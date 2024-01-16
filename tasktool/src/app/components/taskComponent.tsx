@@ -27,7 +27,7 @@ export default function TaskComponent(props: taskComponentProps) {
             </div>
           </div>
           <div className={styles.optionButtonContainer}>
-            <Button className={styles.cancelButton} onClick={async () => closeTask(props.task)} icon="cross" />
+            <Button className={styles.cancelButton}/> {/* onClick={async () => closeTask(props.task)} icon="cross" /> */}
           </div>
         </div>
       </>
@@ -49,8 +49,8 @@ export default function TaskComponent(props: taskComponentProps) {
             </div>
           </div>
           <div className={styles.optionButtonContainer}>
-            <Button className={styles.finishedButton} onClick={async () => finishTask(props.task)} icon="tick"/>
-            <Button className={styles.cancelButton} onClick={async () => closeTask(props.task)} icon="cross" />
+            <Button className={styles.finishedButton}/> {/* onClick={async () => finishTask(props.task)} icon="tick"/> */}
+            <Button className={styles.cancelButton}/>  {/* onClick={async () => closeTask(props.task)} icon="cross" /> */}
           </div>
         </div>
       </>
@@ -76,25 +76,25 @@ function getCategory(category: Category): string {
   return res;
 }
 
-async function closeTask(taskToClose: Task) {
+// async function closeTask(taskToClose: Task) {
 
-  const data: deleteTaskRequest = {id: taskToClose.id, category: taskToClose.category, createdAt: taskToClose.createtAt, description: taskToClose.description, finished: true, finishedAt: new Date(),};
+//   const data: deleteTaskRequest = {id: taskToClose.id, category: taskToClose.category, createdAt: taskToClose.createtAt, description: taskToClose.description, finished: true, finishedAt: new Date(),};
 
-  const res = await fetch("/api/task", {
-    method: "DELETE",
-    body: JSON.stringify(data),
-    headers: {'Content-Type': 'application/json'},
-  })
-  location.reload();
+//   const res = await fetch("/api/task", {
+//     method: "DELETE",
+//     body: JSON.stringify(data),
+//     headers: {'Content-Type': 'application/json'},
+//   })
+//   location.reload();
 
-  return NextResponse.json({ res })
-}
+//   return NextResponse.json({ res })
+// }
 
-async function finishTask(taskToFinish: Task) {
+// async function finishTask(taskToFinish: Task) {
   
-  const data: updateTaskRequest = { category: taskToFinish.category, createdAt: taskToFinish.createtAt, description: taskToFinish.description, finished: taskToFinish.finished, id: taskToFinish.id, finishedAt: taskToFinish.finishedAt }
+//   const data: updateTaskRequest = { category: taskToFinish.category, createdAt: taskToFinish.createtAt, description: taskToFinish.description, finished: taskToFinish.finished, id: taskToFinish.id, finishedAt: taskToFinish.finishedAt }
 
-  await fetch("/api/task", { method: "PUT", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+//   await fetch("/api/task", { method: "PUT", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
 
-  location.reload();
-}
+//   location.reload();
+// }

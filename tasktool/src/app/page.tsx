@@ -18,37 +18,34 @@ export default function Home() {
     tasks: [],
   });
 
-  useEffect(() => {
-    async function fetchData() {
-      const req = await fetch("api/task", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      })
-      const res = await req.json()
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const req = await fetch("api/task", {
+  //       method: "GET",
+  //       headers: { "Content-Type": "application/json" }
+  //     })
+  //     const res = await req.json()
 
-      const tasks: Array<Task> = [];
+  //     const tasks: Array<Task> = [];
 
-      for (let index = 0; index < res.res.length; index++) {
-        const task = res.res[index];
-        if (!task.finished) {
-          tasks.push(task);
-        }
-      }
+  //     for (let index = 0; index < res.res.length; index++) {
+  //       const task = res.res[index];
+  //       if (!task.finished) {
+  //         tasks.push(task);
+  //       }
+  //     }
       
-      setState({ category: undefined, tasks: tasks })
-    }
+  //     setState({ category: undefined, tasks: tasks })
+  //   }
 
-    fetchData();
-  }, [])
+  //   fetchData();
+  // }, [])
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <div>
-          <CreateTaskForm />
-        </div>
+      <div className={styles.createTaskContainer}>
+        <CreateTaskForm />
       </div>
-
       <div className={styles.grid}>
         <div
           className={styles.card}

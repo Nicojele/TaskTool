@@ -18,27 +18,27 @@ export default function ShowOrderView() {
     filteredTasks: []
   });
 
-  useEffect(() => {
-    async function fetchData() {
-      const req = await fetch("api/task", {
-        method: "GET",
-        headers: {"Content-Type" : "application/json"}
-      })
-      const res = await req.json();
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const req = await fetch("api/task", {
+  //       method: "GET",
+  //       headers: {"Content-Type" : "application/json"}
+  //     })
+  //     const res = await req.json();
 
-      const finishedTasks: Array<Task> = []
+  //     const finishedTasks: Array<Task> = []
 
-      for (let index = 0; index < res.res.length; index++) {
-        const task = res.res[index];
-        if (task.finished) {
-          finishedTasks.push(task)
-        }
-      }
-      setState({ tasks: finishedTasks, filteredTasks: [], isFiltered: false })
-    }
+  //     for (let index = 0; index < res.res.length; index++) {
+  //       const task = res.res[index];
+  //       if (task.finished) {
+  //         finishedTasks.push(task)
+  //       }
+  //     }
+  //     setState({ tasks: finishedTasks, filteredTasks: [], isFiltered: false })
+  //   }
 
-    fetchData();
-  }, [])
+  //   fetchData();
+  // }, [])
 
   function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);

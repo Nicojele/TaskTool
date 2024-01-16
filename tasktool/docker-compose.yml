@@ -1,29 +1,17 @@
 version: '3.8'
 services:
-  postgres_db:
-    image: postgres:latest
-    container_name: PostgresCont 
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=db
-    ports:
-      - '5432:5432'
-    volumes:
-      - ./infrastructure/postgres_db:/var/lib/postgresql/data
-
-  engine:
-    image: 5minds/processcube_engine:16.0.0-alpha.2
+  db:
+    image: postgres:15.4
     restart: unless-stopped
-    ports:
-      - 8000:8000
     volumes:
-      - ./.processcube/engine/config/config.json:/etc/engine/config/config.json:ro
-      - ./processes:/processes:ro
-    command: --seed-dir=/processes --port 8000
+      - ./database:/var/lib/postgresql/data
+      - ./infrastructure/scripts/create-multiple-postgresql-databases.sh:/docker-entrypoint-initdb.d/create-multiple-postgresql-databases.sh:rw
     environment:
-      CONFIG_PATH: /etc/engine/config/config.json
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=ProcessCubeAdmin1
+      - POSTGRES_MULTIPLE_DATABASES=engine,authority
+    ports:
+      - 5432:5432
 
   authority:
     image: 5minds/processcube_authority:2023-2
@@ -37,15 +25,26 @@ services:
     volumes:
       - ./.processcube/authority/config.json:/etc/authority/config/config.json
       - ./.processcube/authority/upeSeedingData.json:/etc/authority/config/upeSeedingData.json
- 
+
+  engine:
+    image: 5minds/processcube_engine:2023-2
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - ./.processcube/engine/config.json:/etc/engine/config.json:ro
+      - ./processes:/processes:ro
+    command: --seed-dir=/processes --port 8000
+    environment:
+      CONFIG_PATH: /etc/engine/config.json
+
   app:
     build:
       context: ./
       dockerfile: Dockerfile
     image: 5minds/processcubeio-app
-    command: sh -c "
-      sleep 10 &&
-      npm run dev"
+    restart: unless-stopped
+    command: ${COMMAND:-npm run dev}
     volumes:
       - ./:/src
       - /src/node_modules

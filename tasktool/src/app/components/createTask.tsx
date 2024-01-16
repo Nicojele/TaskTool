@@ -1,7 +1,6 @@
 'use server'
 
 import { Category } from "@prisma/client";
-import prisma from "../../../lib/prisma";
 
 export default async function createTask(formData: FormData) {
   const data: FormDataEntryValue[] = [];
@@ -27,15 +26,15 @@ export default async function createTask(formData: FormData) {
     data.push(entry);
   })
 
-  await prisma.task.create(
-    {
-      data: {
-        category: category,
-        createtAt: new Date(),
-        description: data[1].toString(),
-        finished: false,
-        finishedAt: undefined,
-      }
-     }
-  )
+  // await prisma.task.create(
+  //   {
+  //     data: {
+  //       category: category,
+  //       createtAt: new Date(),
+  //       description: data[1].toString(),
+  //       finished: false,
+  //       finishedAt: undefined,
+  //     }
+  //    }
+  // )
 }
