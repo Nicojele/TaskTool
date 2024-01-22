@@ -2,10 +2,9 @@
 
 import styles from './page.module.css'
 import { Category, Task } from '@prisma/client'
-import { createTaskRequest } from './createTaskRequest/createTaskRequest'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import TaskComponent from './components/taskComponent'
-import CreateTaskForm from './components/createTaskForm'
+import StartProcessForm from './components/startProcessForm'
 
 interface TaskToolState {
   category: Category | undefined
@@ -13,38 +12,15 @@ interface TaskToolState {
 }
 
 export default function Home() {
-  const [state, setState] = useState<TaskToolState>({
+  const [state] = useState<TaskToolState>({
     category: undefined,
     tasks: [],
   });
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const req = await fetch("api/task", {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" }
-  //     })
-  //     const res = await req.json()
-
-  //     const tasks: Array<Task> = [];
-
-  //     for (let index = 0; index < res.res.length; index++) {
-  //       const task = res.res[index];
-  //       if (!task.finished) {
-  //         tasks.push(task);
-  //       }
-  //     }
-      
-  //     setState({ category: undefined, tasks: tasks })
-  //   }
-
-  //   fetchData();
-  // }, [])
-
   return (
     <main className={styles.main}>
       <div className={styles.createTaskContainer}>
-        <CreateTaskForm />
+        <StartProcessForm />
       </div>
       <div className={styles.grid}>
         <div

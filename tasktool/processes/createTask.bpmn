@@ -23,12 +23,7 @@
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="name" label="Was ist das Problem?" type="string" customForm="{&#34;placeholder&#34;:&#34;neue Aufgabe....&#34;,&#34;multiline&#34;:&#34;true&#34;}" />
-          <camunda:formField id="category" label="Wähle eine gewichtung" type="enum" customForm="{&#34;displayAs&#34;:&#34;select&#34;,&#34;placeholder&#34;:&#34;....&#34;}">
-            <camunda:value id="Wichtigdringend" name="Wichtig &#38; Dringend" />
-            <camunda:value id="Wichtig" name="Wichtig" />
-            <camunda:value id="Dringend" name="Dringend" />
-            <camunda:value id="UnwichtigNichtDringend" name="Unwichtig &#38; nicht Dringend" />
-          </camunda:formField>
+          <camunda:formField id="selectTaskData" label="Wähle eine gewichtung" type="confirm" customForm="{&#34;displayAs&#34;:&#34;select&#34;,&#34;placeholder&#34;:&#34;....&#34;}" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0xc3t4r</bpmn:incoming>

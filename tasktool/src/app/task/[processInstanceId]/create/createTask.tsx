@@ -2,16 +2,12 @@
 
 import { Identity } from '@5minds/processcube_engine_sdk';
 import jwtDecode from 'jwt-decode';
-import logger from '../../../lib/server-logger';
-import { navigateToUrl, startProcess } from '@5minds/processcube_app_sdk/server';
- 
-export async function startTaskProcess(): Promise<void> {
-  const identity = await getIdentity();
-  console.log(identity);
-  const prozessInstanze = await startProcess({ processModelId: "createTask_Process" }, identity);
-  const prozessInstanzeId = prozessInstanze.processInstanceId
-  navigateToUrl(`http://localhost:3000/task/${prozessInstanzeId}/create`);
-}
+import logger from '../../../../../lib/server-logger';
+
+// export async function getProcessInstanzeID() {
+//   const identity = await getIdentity();
+//   const test
+// }
 
 export async function getIdentity(): Promise<Identity> {
   logger.info({}, 'Get new Identity');
