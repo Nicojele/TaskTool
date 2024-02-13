@@ -20,7 +20,6 @@ export default function RootLayout({
   return (
     <html>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
         <div className={styles.description}>
           <div className={styles.navbar}>
             <div>
@@ -31,7 +30,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

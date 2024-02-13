@@ -1,10 +1,11 @@
 'use server';
 
-import { getIdentity, getUserTasks, waitForUserTask } from '@5minds/processcube_app_sdk/server';
+import { getUserTasks, waitForUserTask } from '@5minds/processcube_app_sdk/server';
 import { DataModels } from '@5minds/processcube_engine_sdk';
-
+import jwtDecode from 'jwt-decode';
 import { navigateToUrl } from '@5minds/processcube_app_sdk/server';
 import logger from '../../../lib/server-logger';
+import { getIdentity } from './authorization';
 
 export async function getUserTask(
   processInstanceId: string,
@@ -15,15 +16,8 @@ export async function getUserTask(
   const identity = await getIdentity();
   const filterBy = { processInstanceId: processInstanceId, flowNodeId: flowNodeId };
   const options = { identity: identity };
-  
-  console.log("------------------------------------------")
-  console.log(filterBy);
-  console.log(options)
-  
-  const tasklist = await getUserTasks(filterBy, options);
 
-  console.log("------------------------------------")
-  console.log(tasklist);
+  const tasklist = await getUserTasks(filterBy, options);
 
   const invalidProcessInstanceId = tasklist.totalCount == 0;
   if (invalidProcessInstanceId) {

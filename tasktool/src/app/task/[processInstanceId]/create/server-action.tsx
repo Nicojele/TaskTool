@@ -1,11 +1,13 @@
 'use server';
 
-import { finishUserTask, navigateToUrl, getEngineClient, getIdentity } from '@5minds/processcube_app_sdk/server';
+import { finishUserTask, navigateToUrl, getEngineClient } from '@5minds/processcube_app_sdk/server';
 import { DataModels } from '@5minds/processcube_engine_sdk';
 import { z } from 'zod';
 
+
 import logger from '../../../../../lib/server-logger';
-import { getAccessToken } from './createTask';
+import { getAccessToken, getIdentity } from '../../../utils/authorization';
+import { navigateHome } from 'src/app/utils/navigation';
 
 export async function terminateProcessInstance(processInstanceId: string): Promise<void> {
   logger.info({ processInstanceId: processInstanceId }, 'Terminate ProcessInstance');
@@ -30,40 +32,32 @@ type claimProps = {
 };
 
 export async function finishUserTaskAndNavigateToUrl(
-  formData: FormData,
   currentTask: DataModels.FlowNodeInstances.UserTaskInstance,
   processInstanceId: string,
   flowNodeId: string,
-  accountId: string,
-  claims: claimProps[],
+  description: string,
+  category: string,
 ): Promise<void> {
   logger.info(
     { currentTask: currentTask, processInstanceId: processInstanceId, flowNodeId: flowNodeId },
     'Finish UserTask and navigate to url',
   );
 
-  const emailVerifiedClaim = claims.find((claim) => {
-    return claim.name == 'email_verified';
-  });
-
   const userTaskResult = {
-    vorname: formData.get('vorname'),
-    nachname: formData.get('nachname'),
-    unternehmen: formData.get('unternehmen'),
-    email: formData.get('email'),
-    accountId: accountId,
-    emailVerifiedClaim: emailVerifiedClaim,
-    level: currentTask.startToken.level,
+    description: description,
+    category: category,
   };
 
   const identity = await getIdentity();
+  
   const finishedUserTask = await finishUserTask(currentTask.flowNodeInstanceId, userTaskResult, identity);
 
-  logger.info({ finishedUserTask: finishedUserTask }, 'Finished UserTask and navigate to confirm email sending');
-  navigateToUrl('confirm_email_sending');
+  logger.info({ finishedUserTask: finishedUserTask }, 'Finished UserTask');
+
+  navigateToUrl("/");
 }
 
-export async function createAccount(prevState: any, formData: FormData): Promise<any> {
+export async function createTask(formData: FormData): Promise<any> {
   logger.info({}, 'Create Account in Authority');
   const accessToken = await getAccessToken();
   const validationResponse = validateFormData(formData);

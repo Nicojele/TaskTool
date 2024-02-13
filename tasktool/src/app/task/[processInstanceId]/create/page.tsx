@@ -1,82 +1,66 @@
 'use client'
 
-import { useFormState } from 'react-dom';
 import { NavigationParams } from './navigation-params';
 import { useState, useEffect } from 'react';
 import styles from "./page.module.css";
-import { getUserTask } from "@/app/utils/process-controlling.tsx";
-import { navigateHome } from "@/app/utils/navigation";
-import { createAccount, finishUserTaskAndNavigateToUrl } from "./server-action";
-import { LoadingApp } from "@/app/components/LoadingApp";
+import { finishUserTaskAndNavigateToUrl } from "./server-action";
 import { UserTaskInstance } from "@5minds/processcube_engine_sdk";
-
-const initialState = {
-  descryption: '',
-  category: undefined,
-};
+import { navigateHome } from 'src/app/utils/navigation';
+import { getUserTask } from 'src/app/utils/process-controlling.tsx';
 
 export default function CreateTaskForm(params: NavigationParams) {
-  const [currentTask, setCurrentTask] = useState(null);
-  const [pageIsLoading, setPageLoading] = useState(true);
-  // const [state, formAction] = useFormState(submit, initialState);
+  const [currentTask, setCurrentTask] = useState<UserTaskInstance | null>(null);
+  const [pageIsLoading, setPageLoading] = useState(false);
 
-  const flowNodeId = "selectTaskData";
+  const flowNodeId = "createTask";
 
   const processInstanceId = params.params.processInstanceId;
-  let test: UserTaskInstance;
-
-  console.log("test");
-
 
   useEffect(() => {
     getUserTask(processInstanceId, flowNodeId).then((data) => {
-      console.log(data);
-      test = data;
-      // setCurrentTask(data);
-      if (data) setPageLoading(false);
+      setCurrentTask(data);
+      if (data) setPageLoading(true);
     });
   }, []);
 
-  const userTaskAlreadyFinished = currentTask === 'finished' || currentTask === 'terminated';
+   const userTaskAlreadyFinished = currentTask?.state === 'finished' || currentTask?.state === 'terminated';
   if (userTaskAlreadyFinished) {
     navigateHome();
   }
 
-  function submit(prevState: any, formData: FormData) {
-    const response = createAccount(prevState, formData).then((response) => {
-      if (response.type != 'error') {
-        finishUserTaskAndNavigateToUrl(
-          formData,
-          test,
-          processInstanceId,
-          flowNodeId,
-          response.accountId,
-          response.claims,
-        );
-      } else {
-        return response;
-      }
-    });
+  async function submit(formData: FormData) {
+    const description = formData.get('description').toString();
+    const category = formData.get('category').toString();
+    const finishTask = finishUserTaskAndNavigateToUrl(
+      currentTask,
+      processInstanceId,
+      flowNodeId,
+      description,
+      category,
+    );
 
-    return response;
+    return finishTask;
   }
 
-  if (pageIsLoading || userTaskAlreadyFinished) return <LoadingApp />;
-
-  return (
-    <form>
-      <div>
-        <p>Please enter a description</p>
-        <input type='text'></input>
-        <p>Select a category</p>
-        <select className={styles.dropdown}>
-          <option className={styles.dropdownItem} value="Wichitg & Dringend">Wichtig und Dringend</option>
-          <option className={styles.dropdownItem} value="Wichitg">Wichtig</option>
-          <option className={styles.dropdownItem} value="Dringend">Dringend</option>
-          <option className={styles.dropdownItem} value="Nicht Wichitg & Nicht Dringend">Nicht Wichitg & Nicht Dringend</option>
-        </select>
-        <button className={styles.createTaskButton}>create</button>
-      </div>
-    </form>
+  if (pageIsLoading || userTaskAlreadyFinished)  return (
+    <main className={styles.main}>
+      <form action={submit} className={styles.createTaskForm}>
+        <div className={styles.createTaskContainer}>
+          <h1 className={styles.DescriptionHeader}>Please enter a description</h1>
+          <input type='text' className={styles.descriptionInput} id={"descriptionInput"} name='description'></input>
+          <h1 className={styles.categoryheader}>Select a category</h1>
+          <select className={styles.dropdown} id={"categoryInput"} name='category'>
+            <option></option>
+            <option className={styles.dropdownItem} value="Wichtig & Dringend">Wichtig und Dringend</option>
+            <option className={styles.dropdownItem} value="Wichtig">Wichtig</option>
+            <option className={styles.dropdownItem} value="Dringend">Dringend</option>
+            <option className={styles.dropdownItem} value="Nicht Wichtig & Nicht Dringend">Nicht Wichitg & Nicht Dringend</option>
+          </select>
+          <div className={styles.buttonContainer}>
+            <button className={styles.submitdataButton}>Create Task</button>
+          </div>
+        </div>
+      </form>
+    </main>
   )
 }

@@ -1,44 +1,38 @@
 'use client';
 import styles from "./history.module.css";
 import TaskComponent from "../components/taskComponent";
-import { Category, Task } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { Button } from "@blueprintjs/core";
+import { getProcessInstanzess } from "../components/startsprocess";
 
 interface HistoryState {
-  tasks: Array<Task>
+  tasks: any[]
+  filteredTasks: any[]
   isFiltered: boolean
-  filteredTasks: Array<Task>
 }
 
 export default function ShowOrderView() {
   const [state, setState] = useState<HistoryState>({
     tasks: [],
+    filteredTasks: [],
     isFiltered: false,
-    filteredTasks: []
   });
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const req = await fetch("api/task", {
-  //       method: "GET",
-  //       headers: {"Content-Type" : "application/json"}
-  //     })
-  //     const res = await req.json();
-
-  //     const finishedTasks: Array<Task> = []
-
-  //     for (let index = 0; index < res.res.length; index++) {
-  //       const task = res.res[index];
-  //       if (task.finished) {
-  //         finishedTasks.push(task)
-  //       }
-  //     }
-  //     setState({ tasks: finishedTasks, filteredTasks: [], isFiltered: false })
-  //   }
-
-  //   fetchData();
-  // }, [])
+  useEffect(() => {
+    async function fetchData() {
+      const instanzess = []
+      const processInstanzes = getProcessInstanzess();
+      (await processInstanzes).processInstances.forEach((instanz) => {
+        if (instanz.state == "finished") {
+          instanzess.push({
+            description: instanz.startToken.payload.description, category: instanz.startToken.payload.category, finished: true, processInstanzeId: instanz.processInstanceId
+          })
+        }
+      });
+      setState({ tasks: instanzess, filteredTasks: state.filteredTasks, isFiltered: state.isFiltered })
+    }
+    fetchData();
+  }, [])
 
   function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +41,7 @@ export default function ShowOrderView() {
         setIsOpen(!isOpen);
     };
 
-    const handleItemClick = (category: Category) => {
+    const handleItemClick = (category: string) => {
       filterTasks(category)
       setIsOpen(false);
     };
@@ -58,20 +52,21 @@ export default function ShowOrderView() {
           {isOpen && (
             <div className={styles.dropdownContent}>
               <a href="#" onClick={() => setState({ filteredTasks: [], isFiltered: false, tasks: state.tasks })}>Ohne Filter</a>
-              <a href="#" onClick={() => handleItemClick(Category.WichtigDringend)}>wichtig & dringend</a>
-              <a href="#" onClick={() => handleItemClick(Category.Wichtig)}>wichtig & nicht dringend</a>
-              <a href="#" onClick={() => handleItemClick(Category.Dringend)}>nicht wichtig & dringend</a>
-              <a href="#" onClick={() => handleItemClick(Category.Unwichtig)}>nicht wichtig & nicht dringend</a>
-            </div>
+              <a href="#" onClick={() => handleItemClick("Wichtig & Dringend")}>wichtig & dringend</a>
+              <a href="#" onClick={() => handleItemClick("Wichtig")}>wichtig & nicht dringend</a>
+              <a href="#" onClick={() => handleItemClick("Dringend")}>nicht wichtig & dringend</a>
+              <a href="#" onClick={() => handleItemClick("Nicht Wichtig & Nicht Dringend")}>nicht wichtig & nicht dringend</a>
+          </div>
           )}
         </div>
     )
   }
 
-  function filterTasks(category: Category) {
-    const filteredTasks: Array<Task> = [];
+  function filterTasks(category: string) {
+    const filteredTasks: Array<any> = [];
     for (let index = 0; index < state.tasks.length; index++) {
       const task = state.tasks[index];
+      
       if (task.category == category) {
         filteredTasks.push(task);
       }

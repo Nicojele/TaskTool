@@ -1,26 +1,40 @@
 'use client'
 
 import styles from './page.module.css'
-import { Category, Task } from '@prisma/client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TaskComponent from './components/taskComponent'
-import StartProcessForm from './components/startProcessForm'
+import CreateTaskForm from './components/startProcessForm'
+import { getProcessInstanzess, startTaskProcess } from './components/startsprocess'
 
 interface TaskToolState {
-  category: Category | undefined
-  tasks: Task[]
+  tasks: any[]
 }
 
 export default function Home() {
-  const [state] = useState<TaskToolState>({
-    category: undefined,
+  const [state, setState] = useState<TaskToolState>({
     tasks: [],
   });
+
+  useEffect(() => {
+    async function fetchData() {
+      const instanzess = []
+      const processInstanzes = getProcessInstanzess();
+      (await processInstanzes).processInstances.forEach((instanz) => {
+        if (instanz.state == "running") {
+          instanzess.push({
+            description: instanz.startToken.payload.description, category: instanz.startToken.payload.category, finished: false, processInstanzeId: instanz.processInstanceId
+          })
+        }
+      });
+      setState({tasks: instanzess})
+    }
+    fetchData();
+  }, [])
 
   return (
     <main className={styles.main}>
       <div className={styles.createTaskContainer}>
-        <StartProcessForm />
+        <CreateTaskForm />
       </div>
       <div className={styles.grid}>
         <div
@@ -32,8 +46,8 @@ export default function Home() {
           </h2>
           <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.WichtigDringend ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Wichtig & Dringend" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -48,8 +62,8 @@ export default function Home() {
           </h2>
             <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.Wichtig ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Wichtig" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -64,8 +78,8 @@ export default function Home() {
           </h2>
             <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.Dringend ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Dringend" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -80,8 +94,8 @@ export default function Home() {
           </h2>
             <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.Unwichtig ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Nicht Wichtig & Nicht Dringend" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -89,4 +103,4 @@ export default function Home() {
       </div>
     </main>
   )
-}   
+}
