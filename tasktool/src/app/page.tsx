@@ -1,54 +1,41 @@
 'use client'
 
 import styles from './page.module.css'
-import { Category, Task } from '@prisma/client'
-import { createTaskRequest } from './createTaskRequest/createTaskRequest'
 import { useEffect, useState } from 'react'
 import TaskComponent from './components/taskComponent'
-import CreateTaskForm from './components/createTaskForm'
+import CreateTaskForm from './components/startProcessForm'
+import { getProcessInstanzess, startTaskProcess } from './components/startsprocess'
 
 interface TaskToolState {
-  category: Category | undefined
-  tasks: Task[]
+  tasks: any[]
 }
 
 export default function Home() {
   const [state, setState] = useState<TaskToolState>({
-    category: undefined,
     tasks: [],
   });
 
   useEffect(() => {
     async function fetchData() {
-      const req = await fetch("api/task", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      })
-      const res = await req.json()
-
-      const tasks: Array<Task> = [];
-
-      for (let index = 0; index < res.res.length; index++) {
-        const task = res.res[index];
-        if (!task.finished) {
-          tasks.push(task);
+      const instanzess = []
+      const processInstanzes = getProcessInstanzess();
+      (await processInstanzes).processInstances.forEach((instanz) => {
+        if (instanz.state == "running") {
+          instanzess.push({
+            description: instanz.startToken.payload.description, category: instanz.startToken.payload.category, finished: false, processInstanzeId: instanz.processInstanceId
+          })
         }
-      }
-      
-      setState({ category: undefined, tasks: tasks })
+      });
+      setState({tasks: instanzess})
     }
-
     fetchData();
   }, [])
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <div>
-          <CreateTaskForm />
-        </div>
+      <div className={styles.createTaskContainer}>
+        <CreateTaskForm />
       </div>
-
       <div className={styles.grid}>
         <div
           className={styles.card}
@@ -59,8 +46,8 @@ export default function Home() {
           </h2>
           <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.WichtigDringend ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Wichtig & Dringend" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -75,8 +62,8 @@ export default function Home() {
           </h2>
             <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.Wichtig ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Wichtig" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -91,8 +78,8 @@ export default function Home() {
           </h2>
             <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.Dringend ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Dringend" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -107,8 +94,8 @@ export default function Home() {
           </h2>
             <div className={styles.taskContainer}>
             {state.tasks.map((task) => (
-              task.category == Category.Unwichtig ? (
-                <TaskComponent task={task} key={task.id}></TaskComponent>
+              task.category == "Nicht Wichtig & Nicht Dringend" ? (
+                <TaskComponent task={task} key={task.processInstanzeId}></TaskComponent>
               ) : null
             ))}
           </div>
@@ -116,4 +103,4 @@ export default function Home() {
       </div>
     </main>
   )
-}   
+}
