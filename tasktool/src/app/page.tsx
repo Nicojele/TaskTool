@@ -8,11 +8,13 @@ import { getProcessInstanzess, startTaskProcess } from './components/startsproce
 
 interface TaskToolState {
   tasks: any[]
+  isLoading: boolean
 }
 
 export default function Home() {
   const [state, setState] = useState<TaskToolState>({
     tasks: [],
+    isLoading: true
   });
 
   useEffect(() => {
@@ -26,12 +28,17 @@ export default function Home() {
           })
         }
       });
-      setState({tasks: instanzess})
+      setState({tasks: instanzess, isLoading: false})
     }
     fetchData();
   }, [])
 
-  return (
+  if (state.isLoading) return ( 
+    <main className={styles.main}>
+      <div className={styles.loader}></div>
+    </main>
+  )
+  else return (
     <main className={styles.main}>
       <div className={styles.createTaskContainer}>
         <CreateTaskForm />
@@ -101,6 +108,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </main>
+    </main>   
   )
 }
